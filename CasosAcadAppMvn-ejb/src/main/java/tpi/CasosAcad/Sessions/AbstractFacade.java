@@ -5,8 +5,12 @@
  */
 package tpi.CasosAcad.Sessions;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 /**
  *
@@ -61,4 +65,28 @@ public abstract class AbstractFacade<T> {
         return ((Long) q.getSingleResult()).intValue();
     }
     
+   /* public List<T> findByState(Object estado){
+    
+    
+    javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        cq.select(cq.from(entityClass));
+        
+        return getEntityManager().createQuery(cq).getResultList()
+                
+                
+                 try{
+        if(em!=null){
+          
+            Query q= em.createNamedQuery("TipoRequisito.findByActivo");
+            q.setParameter("activo", estado);
+            return q.getResultList();                    
+        }        
+        }catch(Exception e){
+        
+        Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
+        }
+        return new ArrayList();
+    
+    
+    }*/
 }

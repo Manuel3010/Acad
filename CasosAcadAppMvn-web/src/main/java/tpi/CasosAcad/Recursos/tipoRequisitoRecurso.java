@@ -24,13 +24,13 @@ import tpi.CasosAcad.Sessions.TipoRequisitoFacadeLocal;
  */
 @RequestScoped
 @Path("tipoRequisito")
-//@Produces({MediaType.APPLICATION_JSON})
 public class tipoRequisitoRecurso {
 
     @Inject
     private TipoRequisitoFacadeLocal tipoRequisitoFacade;
 
     @GET
+    @Produces({MediaType.APPLICATION_JSON})
     public List<TipoRequisito> findAll() {
 
         List salida = new ArrayList();
@@ -47,6 +47,7 @@ public class tipoRequisitoRecurso {
     
     @GET
     @Path("{estado}")
+    @Produces({MediaType.APPLICATION_JSON})
     public List<TipoRequisito> findByEstado(@PathParam("activo") boolean estado ) {
 
         List salida = new ArrayList();
