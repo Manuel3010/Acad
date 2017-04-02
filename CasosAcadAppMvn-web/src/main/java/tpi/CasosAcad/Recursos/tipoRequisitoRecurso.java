@@ -64,7 +64,7 @@ public class tipoRequisitoRecurso {
     
     
 
-  /*   @GET
+     @GET
      @Path("{id}")
      public TipoRequisito findById(@PathParam("id") Integer id){
        TipoRequisito salida= new TipoRequisito();
@@ -81,7 +81,7 @@ public class tipoRequisitoRecurso {
     }
     
     
-    */
+   
     
     
     
