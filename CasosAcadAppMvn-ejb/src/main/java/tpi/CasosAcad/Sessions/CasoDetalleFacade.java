@@ -28,5 +28,6 @@ public class CasoDetalleFacade extends AbstractFacade<CasoDetalle> implements Ca
     public CasoDetalleFacade() {
         super(CasoDetalle.class);
     }
+
     
 }

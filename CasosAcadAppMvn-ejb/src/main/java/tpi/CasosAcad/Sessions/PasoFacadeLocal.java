@@ -16,11 +16,13 @@ import tpi.CasosAcad.Entidades.Paso;
 @Local
 public interface PasoFacadeLocal {
 
-    void create(Paso paso);
+    boolean create(Paso paso);
 
-    void edit(Paso paso);
+    //void edit(Paso paso);
 
-    void remove(Paso paso);
+    boolean editar(Paso paso);
+    
+    boolean remove(Paso paso);
 
     Paso find(Object id);
 

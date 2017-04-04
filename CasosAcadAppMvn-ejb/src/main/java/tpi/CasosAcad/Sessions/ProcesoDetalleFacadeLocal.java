@@ -16,11 +16,13 @@ import tpi.CasosAcad.Entidades.ProcesoDetalle;
 @Local
 public interface ProcesoDetalleFacadeLocal {
 
-    void create(ProcesoDetalle procesoDetalle);
+    boolean create(ProcesoDetalle procesoDetalle);
 
-    void edit(ProcesoDetalle procesoDetalle);
+    //void edit(ProcesoDetalle procesoDetalle);
 
-    void remove(ProcesoDetalle procesoDetalle);
+    boolean editar(ProcesoDetalle procesoDetalle);
+    
+    boolean remove(ProcesoDetalle procesoDetalle);
 
     ProcesoDetalle find(Object id);
 

@@ -46,9 +46,9 @@ public class tipoRequisitoRecurso {
     }
     
     @GET
-    @Path("{estado}")
+    @Path("estado/{estado}")
     @Produces({MediaType.APPLICATION_JSON})
-    public List<TipoRequisito> findByEstado(@PathParam("activo") boolean estado ) {
+    public List<TipoRequisito> findByEstado(@PathParam("estado/{estado}") boolean estado ) {
 
         List salida = new ArrayList();
         try {

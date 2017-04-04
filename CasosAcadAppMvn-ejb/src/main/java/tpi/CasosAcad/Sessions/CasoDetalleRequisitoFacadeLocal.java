@@ -16,11 +16,13 @@ import tpi.CasosAcad.Entidades.CasoDetalleRequisito;
 @Local
 public interface CasoDetalleRequisitoFacadeLocal {
 
-    void create(CasoDetalleRequisito casoDetalleRequisito);
+    boolean create(CasoDetalleRequisito casoDetalleRequisito);
 
-    void edit(CasoDetalleRequisito casoDetalleRequisito);
+    //void edit(CasoDetalleRequisito casoDetalleRequisito);
 
-    void remove(CasoDetalleRequisito casoDetalleRequisito);
+    boolean editar(CasoDetalleRequisito casoDetalleRequisito);
+    
+    boolean remove(CasoDetalleRequisito casoDetalleRequisito);
 
     CasoDetalleRequisito find(Object id);
 

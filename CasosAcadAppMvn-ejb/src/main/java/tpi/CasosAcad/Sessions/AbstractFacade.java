@@ -26,16 +26,77 @@ public abstract class AbstractFacade<T> {
 
     protected abstract EntityManager getEntityManager();
 
-    public void create(T entity) {
+  /*  public void create(T entity) {
         getEntityManager().persist(entity);
+    }*/
+    public boolean create(T entity) {
+        boolean salida = false;
+        T e = this.crear(entity);
+            if(e != null) {
+                salida = true;
+            }
+        return salida;
+    }
+    
+    public T crear(T entity){
+        T salida = null;
+        try {
+            EntityManager em = getEntityManager();
+            if(em != null && entity != null) {
+                em.persist(entity);
+                salida = entity;
+            }
+        } catch(Exception e) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
+        }
+        return salida;
     }
 
-    public void edit(T entity) {
-        getEntityManager().merge(entity);
+      
+    
+    public T edit(T entity) {
+         T salida = null;
+        try {
+            EntityManager em = this.getEntityManager();
+            if(em!=null && entity != null) {
+                em.merge(entity);
+                salida = entity;
+            }
+        }catch(Exception e) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
+        }
+        return salida; 
+
+       //getEntityManager().merge(entity);
+    }
+    
+    public boolean editar(T entity) {
+        boolean salida =false;
+        T ed= this.edit(entity);
+        
+        if(ed!=null){
+            salida = true;
+        }
+        return salida;
     }
 
-    public void remove(T entity) {
+   /* public void remove(T entity) {
         getEntityManager().remove(getEntityManager().merge(entity));
+    }*/
+    
+    public boolean remove(T entity) {
+        boolean salida = false;
+//        getEntityManager().remove(getEntityManager().merge(entity));
+        try {
+            EntityManager em = this.getEntityManager();
+            if(em != null && entity != null) {
+                em.remove(em.merge(entity));
+                salida=true;    
+            }
+        }catch(Exception e) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
+        }
+        return salida;
     }
 
     public T find(Object id) {
@@ -43,9 +104,21 @@ public abstract class AbstractFacade<T> {
     }
 
     public List<T> findAll() {
-        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+         List salida = new ArrayList();
+        try {
+            EntityManager em = this.getEntityManager();
+            if(em != null){
+                javax.persistence.criteria.CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+                cq.select(cq.from(entityClass));
+                salida = em.createQuery(cq).getResultList();
+            }
+        } catch(Exception e){
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
+        }
+        return salida;
+       /* javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityClass));
-        return getEntityManager().createQuery(cq).getResultList();
+        return getEntityManager().createQuery(cq).getResultList();*/
     }
 
     public List<T> findRange(int[] range) {

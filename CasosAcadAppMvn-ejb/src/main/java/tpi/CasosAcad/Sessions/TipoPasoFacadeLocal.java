@@ -16,11 +16,13 @@ import tpi.CasosAcad.Entidades.TipoPaso;
 @Local
 public interface TipoPasoFacadeLocal {
 
-    void create(TipoPaso tipoPaso);
+   boolean create(TipoPaso tipoPaso);
 
-    void edit(TipoPaso tipoPaso);
+    //void edit(TipoPaso tipoPaso);
 
-    void remove(TipoPaso tipoPaso);
+   boolean editar(TipoPaso tipoPaso);
+    
+    boolean remove(TipoPaso tipoPaso);
 
     TipoPaso find(Object id);
 

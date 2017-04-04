@@ -16,11 +16,13 @@ import tpi.CasosAcad.Entidades.PasoRequisito;
 @Local
 public interface PasoRequisitoFacadeLocal {
 
-    void create(PasoRequisito pasoRequisito);
+    boolean create(PasoRequisito pasoRequisito);
 
-    void edit(PasoRequisito pasoRequisito);
+    //void edit(PasoRequisito pasoRequisito);
 
-    void remove(PasoRequisito pasoRequisito);
+    boolean editar(PasoRequisito pasoRequisito);
+    
+    boolean remove(PasoRequisito pasoRequisito);
 
     PasoRequisito find(Object id);
 

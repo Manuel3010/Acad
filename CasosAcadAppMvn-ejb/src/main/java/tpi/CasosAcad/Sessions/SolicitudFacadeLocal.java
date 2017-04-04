@@ -16,11 +16,13 @@ import tpi.CasosAcad.Entidades.Solicitud;
 @Local
 public interface SolicitudFacadeLocal {
 
-    void create(Solicitud solicitud);
+    boolean create(Solicitud solicitud);
 
-    void edit(Solicitud solicitud);
+    //void edit(Solicitud solicitud);
 
-    void remove(Solicitud solicitud);
+    boolean editar(Solicitud solicitud);
+    
+    boolean remove(Solicitud solicitud);
 
     Solicitud find(Object id);
 
