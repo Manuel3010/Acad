@@ -32,7 +32,7 @@ public class FrmTipoRequisito implements Serializable {
     private LazyDataModel<TipoRequisito> modelo;
     @EJB
     private TipoRequisitoFacadeLocal trfl;
-    private TipoRequisito tipo;
+    private TipoRequisito tipo= new TipoRequisito();
     private boolean editar;
     private boolean agregar;
     public TipoRequisito getTipo() {
@@ -46,7 +46,7 @@ public class FrmTipoRequisito implements Serializable {
     
     @PostConstruct
     public void init(){
-        this.tipo=new TipoRequisito();
+        //this.tipo=new TipoRequisito();
         
          setModelo(new LazyDataModel<TipoRequisito>(){
 
