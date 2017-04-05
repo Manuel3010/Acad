@@ -57,12 +57,10 @@
                 <p:inputText id="txtObservacion"  value="#{frmTipoPaso.registro.observacion}" required="true"></p:inputText>
                 <p:commandButton value="Nuevo">    
                 </p:commandButton>
-                <p:commandButton value="Modificar">
-                   
-                </p:commandButton>
-                <!--actionListener="{frmTipoRequisito.btnGuardarAction}"--> 
-                <p:commandButton value="Guardar"></p:commandButton> 
-                <p:commandButton value="Eliminar" ></p:commandButton>
+                <p:commandButton value="Modificar" actionListener="#{frmTipoPaso.btnModificarAction}" update="tablaTipoPaso">                   
+                </p:commandButton>        
+                <p:commandButton value="Guardar" actionListener="#{frmTipoPaso.btnGuardarAction}" update="tablaTipoPaso"></p:commandButton> 
+                <p:commandButton value="Eliminar" actionListener="#{frmTipoPaso.btnEliminarAction}" update="tablaTipoPaso" ></p:commandButton>
             </p:panelGrid>
             
           

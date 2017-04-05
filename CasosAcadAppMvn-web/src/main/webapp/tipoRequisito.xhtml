@@ -55,12 +55,9 @@
                 </p:selectOneRadio>
                 <p:outputLabel value="Observacion" for="txtObservacion" id="lblObservacion"></p:outputLabel>
                 <p:inputText id="txtObservacion"  value="#{frmTipoRequisito.tipo.observacion}" required="true"></p:inputText>
-                <p:commandButton value="Nuevo" update="vistaEditar">    
+                <p:commandButton value="Nuevo" update="panelMenuTR">    
                 </p:commandButton>
-                <p:commandButton value="Modificar" actionListener="#{frmTipoRequisito.btnModificarAction}" update="tablaTipoRequisito" >
-                   
-                </p:commandButton>
-                
+                <p:commandButton value="Modificar" actionListener="#{frmTipoRequisito.btnModificarAction}" update="tablaTipoRequisito" ></p:commandButton>                
                 <p:commandButton value="Guardar" actionListener="#{frmTipoRequisito.btnGuardarAction}" update="tablaTipoRequisito"></p:commandButton> 
                 <p:commandButton value="Eliminar" actionListener="#{frmTipoRequisito.btnEliminarAction}" update="tablaTipoRequisito"></p:commandButton>
             </p:panelGrid>                        

@@ -11,12 +11,15 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import tpi.CasosAcad.Entidades.TipoPaso;
-import tpi.CasosAcad.Entidades.TipoRequisito;
+//import tpi.CasosAcad.Entidades.TipoRequisito;
 import tpi.CasosAcad.Sessions.TipoPasoFacadeLocal;
 
 /**
@@ -31,7 +34,8 @@ public class FrmTipoPaso implements Serializable {
    
     @EJB
     private TipoPasoFacadeLocal tpfl;
-    private TipoPaso registro;
+    
+    private TipoPaso registro = new TipoPaso();
     
     
     @PostConstruct
@@ -92,7 +96,45 @@ public class FrmTipoPaso implements Serializable {
         this.registro = registro;
     }
     
-    
+    public void btnGuardarAction(ActionEvent ae){
+        try {
+        //    
+            if(this.registro != null && this.tpfl != null){
+                //this.tipo=new TipoRequisito();
+                boolean resultado = this.tpfl.create(registro);
+                //this.tipo=new TipoRequisito();
+                FacesMessage msj = new FacesMessage(FacesMessage.SEVERITY_INFO, resultado?"Creado con exito":"Error", null);
+                //this.agregar = !resultado;
+                FacesContext.getCurrentInstance().addMessage(null, msj);
+            }
+        } catch (Exception e) {
+           
+        }
+     
+      }
+     
+     
+      public void btnModificarAction(ActionEvent ae){
+        try{
+            boolean resultado = this.tpfl.editar(registro); 
+            FacesMessage msj = new FacesMessage(FacesMessage.SEVERITY_INFO, resultado?"Modificado con exito":"Error", null);
+            //this.editar = resultado;
+            FacesContext.getCurrentInstance().addMessage(null, msj);
+        }catch(Exception e){
+            System.err.println(""+e);
+        }
+    }
+      
+         public void btnEliminarAction(ActionEvent ae) {
+        try {
+            if(this.registro != null && this.tpfl != null){
+                boolean resultado = this.tpfl.remove(registro);
+                FacesMessage msj = new FacesMessage(FacesMessage.SEVERITY_INFO, resultado?"Eliminado con exito":"Error", null);
+                FacesContext.getCurrentInstance().addMessage(null, msj);
+            }
+        } catch (Exception e) {
+        }
+    }
     
 
     /**
