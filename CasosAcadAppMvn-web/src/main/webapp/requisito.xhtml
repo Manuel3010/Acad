@@ -85,7 +85,7 @@
                             </p:commandButton>
                             <p:commandButton value="Modificar" actionListener="#{frmRequisito.btnModificarAction}" update="tablaRequisito" ></p:commandButton>                
                             <p:commandButton value="Guardar" actionListener="#{frmRequisito.btnGuardarAction}" update="tablaRequisito"></p:commandButton> 
-                            <p:commandButton value="Eliminar" actionListener="#{frmRequisito.btnEliminarAction}" update="tablaRequisito"></p:commandButton>          
+                            <p:commandButton value="Eliminar" actionListener="#{frmRequisito.btnEliminarAction}" update="tablaRequisito :tabViewRequisito:edAddRequisito"></p:commandButton>          
                         </p:panelGrid>       
                     </h:form>
                 </p:tab>
