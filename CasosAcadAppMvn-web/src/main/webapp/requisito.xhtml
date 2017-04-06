@@ -48,7 +48,7 @@
             </h:panelGrid>
         </p:panel>
         
-        <div align="center">
+        <div>
             <p:tabView id="tabViewRequisito">
                 <p:tab title="Formulario Requisito" id="tabRequisito">
                     <h:form id="edAddRequisito">
@@ -85,12 +85,38 @@
                             </p:commandButton>
                             <p:commandButton value="Modificar" actionListener="#{frmRequisito.btnModificarAction}" update="tablaRequisito" ></p:commandButton>                
                             <p:commandButton value="Guardar" actionListener="#{frmRequisito.btnGuardarAction}" update="tablaRequisito"></p:commandButton> 
-                            <p:commandButton value="Eliminar" actionListener="#{frmRequisito.btnEliminarAction}" update="tablaRequisito"></p:commandButton>
-          
+                            <p:commandButton value="Eliminar" actionListener="#{frmRequisito.btnEliminarAction}" update="tablaRequisito"></p:commandButton>          
                         </p:panelGrid>       
                     </h:form>
                 </p:tab>
-                
+                <p:tab title="Tabla Tipo Requisito" id="tabTipoRequisito">
+                      <h:panelGrid>
+                <h:form id="tablaTipoRequisito">
+                    <p:dataTable value="#{frmTipoRequisito.modelo}"
+                                 var="tipo"
+                                 rows="10"
+                                 paginator="true"
+                                 lazy="true"
+                                 selectionMode="single"
+                                 selection="#{frmTipoRequisito.tipo}"
+                                 style="color: #ff5252"
+                                 >
+                        <p:column headerText="ID">
+                            <p:outputLabel value="#{tipo.idTipoRequisito}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Nombre">
+                            <p:outputLabel value="#{tipo.nombre}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Estado">
+                            <p:outputLabel value="#{tipo.activo?'Activo':'Inactivo'}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Observacion">
+                            <p:outputLabel value="#{tipo.observacion}"></p:outputLabel>
+                        </p:column>                        
+                    </p:dataTable>                        
+                </h:form>
+            </h:panelGrid>
+                </p:tab>
             </p:tabView>    
         </div>
         
