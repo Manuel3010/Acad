@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -35,19 +36,64 @@
                             <p:outputLabel value="#{r.textoPublico}"></p:outputLabel>
                         </p:column>
                         <p:column headerText="Obligatorio">
-                            <p:outputLabel value="#{r.obligatorio}"></p:outputLabel>
+                            <p:outputLabel value="#{r.obligatorio?'Si':'No'}"></p:outputLabel>
                         </p:column>
                         <p:column headerText="Estado">
-                            <p:outputLabel value="#{r.activo}"></p:outputLabel>
-                        </p:column>
-        
-        
-                      <!--  <p:ajax update=":vistaEditar" event="rowSelect" listener="{frmTipoRequisito.cambioTabla}"></p:ajax> -->
+                            <p:outputLabel value="#{r.activo?'Activo':'Inactivo'}"></p:outputLabel>
+                        </p:column>                
+                      <p:ajax update=":tabViewRequisito" event="rowSelect"></p:ajax> 
                     </p:dataTable>    
                     <p:growl id="growl" life="2000" />
                 </h:form>
             </h:panelGrid>
         </p:panel>
+        
+        <div align="center">
+            <p:tabView id="tabViewRequisito">
+                <p:tab title="Formulario Requisito" id="tabRequisito">
+                    <h:form id="edAddRequisito">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="ID Requisito" for="txtIdRequisito" id="lblIdRequisito"></p:outputLabel>
+                            <p:inputText id="txtIdRequisito" value="#{frmRequisito.registro.idRequisito}" readonly="true"></p:inputText>
+                            <p:outputLabel value="Tipo Requisito" for="cbTipoRequisito" id="lblTipoRequisito"></p:outputLabel>
+                            <h:selectOneListbox id="cbTipoRequisito" value="#{frmRequisito.tipoSeleccionado}" 
+                                                style="width: 200px" required="true" styleClass="center_content" size="1" >
+                                <f:selectItem itemLabel="Seleccione Tipo" itemValue="" />
+                                <f:selectItems value="#{frmRequisito.tipos}" 
+                                               var="tipo" 
+                                               itemLabel="#{tipo.nombre}" 
+                                               itemValue="#{tipo.idTipoRequisito}">
+                                </f:selectItems>
+                            </h:selectOneListbox>
+                            <p:outputLabel value="Nombre" for="txtNombreR" id="lblNombreR"></p:outputLabel>
+                            <p:inputText id="txtNombreR" value="#{frmRequisito.registro.requisito}" required="true"></p:inputText>
+                            <p:outputLabel value="Descripcion" for="txtDesc" id="lblDesc"></p:outputLabel>
+                            <p:inputText id="txtDesc" value="#{frmRequisito.registro.descripcion}" required="true"></p:inputText>
+                            <p:outputLabel value="Texto Publico" for="txtTexto" id="lblText"></p:outputLabel>
+                            <p:inputTextarea id="txtTexto" value="#{frmRequisito.registro.textoPublico}" rows="6" cols="33" required="true"></p:inputTextarea>
+                            <p:outputLabel value="Obligatorio" for="rbObligatorio" id="lblObl"></p:outputLabel>
+                            <p:selectOneRadio id="rbObligatorio" value="#{frmRequisito.registro.obligatorio}" required="true">
+                              <f:selectItem itemLabel="SI" itemValue="true" />
+                              <f:selectItem itemLabel="NO" itemValue="false" />
+                            </p:selectOneRadio>
+                            <p:outputLabel value="Estado" for="rbEstad" id="lblEst"></p:outputLabel>
+                            <p:selectOneRadio id="rbEstad" value="#{frmRequisito.registro.activo}" required="true">
+                              <f:selectItem itemLabel="Activo" itemValue="true" />
+                              <f:selectItem itemLabel="Inactivo" itemValue="false" />
+                            </p:selectOneRadio>
+                            <p:commandButton value="Nuevo" >    
+                            </p:commandButton>
+                            <p:commandButton value="Modificar" actionListener="#{frmRequisito.btnModificarAction}" update="tablaRequisito" ></p:commandButton>                
+                            <p:commandButton value="Guardar" actionListener="#{frmRequisito.btnGuardarAction}" update="tablaRequisito"></p:commandButton> 
+                            <p:commandButton value="Eliminar" actionListener="#{frmRequisito.btnEliminarAction}" update="tablaRequisito"></p:commandButton>
+          
+                        </p:panelGrid>       
+                    </h:form>
+                </p:tab>
+                
+            </p:tabView>    
+        </div>
+        
     </h:body>
 </html>
 
