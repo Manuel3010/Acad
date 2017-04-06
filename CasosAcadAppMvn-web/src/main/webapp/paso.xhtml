@@ -62,7 +62,32 @@
                             <p:commandButton value="Eliminar" actionListener="#{frmPaso.btnEliminarAction}" update="tablaPaso"></p:commandButton>          
                         </p:panelGrid>       
                     </h:form>                
-           </p:tab>                        
+           </p:tab> 
+            <p:tab title="Tabla Tipos de Paso" id="tabTipoPaso">
+                   <h:panelGrid>
+                <h:form id="tablaTipoPaso">
+                    <p:dataTable value="#{frmTipoPaso.modelo}"
+                                 var="r"
+                                 rows="5"
+                                 paginator="true"
+                                 lazy="true"                               
+                                 >
+                        <p:column headerText="ID">
+                            <p:outputLabel value="#{r.idTipoPaso}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Nombre">
+                            <p:outputLabel value="#{r.paso}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Estado">
+                            <p:outputLabel value="#{r.activo?'Activo':'Inactivo'}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Observacion">
+                            <p:outputLabel value="#{r.observacion}"></p:outputLabel>
+                        </p:column>                        
+                    </p:dataTable>                    
+                </h:form>
+            </h:panelGrid>                                
+            </p:tab>
        </p:tabView>                        
         </div>
         

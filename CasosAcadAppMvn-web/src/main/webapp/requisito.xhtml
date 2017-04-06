@@ -94,12 +94,9 @@
                 <h:form id="tablaTipoRequisito">
                     <p:dataTable value="#{frmTipoRequisito.modelo}"
                                  var="tipo"
-                                 rows="10"
+                                 rows="5"
                                  paginator="true"
                                  lazy="true"
-                                 selectionMode="single"
-                                 selection="#{frmTipoRequisito.tipo}"
-                                 style="color: #ff5252"
                                  >
                         <p:column headerText="ID">
                             <p:outputLabel value="#{tipo.idTipoRequisito}"></p:outputLabel>
