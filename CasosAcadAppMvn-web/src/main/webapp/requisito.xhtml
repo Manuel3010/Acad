@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <p:panel header="Requisitos para Casos Academicos" closable="false" toggleable="false" >
+            <h:panelGrid>
+                <h:form id="tablaRequisito">
+                    <p:dataTable value="#{frmRequisito.modeloRequisito}"
+                                 var="r"
+                                 rows="10"
+                                 paginator="true"
+                                 lazy="true"
+                                 selectionMode="single"
+                                 selection="#{frmRequisito.registro}"
+                                 style="color: #ff5252"
+                                 >
+                        <p:column headerText="ID">
+                            <p:outputLabel value="#{r.idRequisito}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Tipo Requisito">
+                            <p:outputLabel value="#{r.idTipoRequisito.nombre}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Requisito">
+                            <p:outputLabel value="#{r.requisito}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Descripcion">
+                            <p:outputLabel value="#{r.descripcion}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Texto Publico">
+                            <p:outputLabel value="#{r.textoPublico}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Obligatorio">
+                            <p:outputLabel value="#{r.obligatorio}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Estado">
+                            <p:outputLabel value="#{r.activo}"></p:outputLabel>
+                        </p:column>
+        
+        
+                      <!--  <p:ajax update=":vistaEditar" event="rowSelect" listener="{frmTipoRequisito.cambioTabla}"></p:ajax> -->
+                    </p:dataTable>    
+                    <p:growl id="growl" life="2000" />
+                </h:form>
+            </h:panelGrid>
+        </p:panel>
+    </h:body>
+</html>
+

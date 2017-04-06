@@ -5,9 +5,14 @@
  */
 package tpi.CasosAcad.Sessions;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import tpi.CasosAcad.Entidades.Requisito;
 
 /**
@@ -28,5 +33,24 @@ public class RequisitoFacade extends AbstractFacade<Requisito> implements Requis
     public RequisitoFacade() {
         super(Requisito.class);
     }
+    
+    @Override
+    public List<Requisito> findWtipoR(){
+      
+        List salida= new ArrayList();
+       try{
+        if(em!=null){
+          
+            Query q= em.createNamedQuery("Requisito.findByTipo");
+            salida=q.getResultList();                    
+        }        
+        }catch(Exception e){
+        
+        Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
+        }
+        return salida;
+        
+    }
+    
     
 }

@@ -29,6 +29,8 @@ public interface RequisitoFacadeLocal {
     List<Requisito> findAll();
 
     List<Requisito> findRange(int[] range);
+    
+    List<Requisito> findWtipoR();
 
     int count();
     
