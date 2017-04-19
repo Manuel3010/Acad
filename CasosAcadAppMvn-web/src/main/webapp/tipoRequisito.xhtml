@@ -19,7 +19,8 @@
                                  lazy="true"
                                  selectionMode="single"
                                  selection="#{frmTipoRequisito.tipo}"
-                                 style="color: #ff5252"
+                                 
+                                 widgetVar="dtTipoRequisito"
                                  >
                         <p:column headerText="ID">
                             <p:outputLabel value="#{tipo.idTipoRequisito}"></p:outputLabel>
@@ -36,12 +37,14 @@
                         <p:ajax update=":vistaEditar" event="rowSelect" listener="${frmTipoRequisito.cambioTabla}"></p:ajax>
                     </p:dataTable>    
                     <p:growl id="growl" life="2000" />
+                    
                 </h:form>
+                
             </h:panelGrid>
         </p:panel>
         <div align="center">
             <p:panel id="panelMenuTR">
-        <h:form id="vistaEditar" style="text-align: center" >
+        <h:form id="vistaEditar" style="text-align: center" >         
             <p:panelGrid columns="2" style="text-align:  center" >
                 
                 <p:outputLabel value="ID" for="txtIdTipoRequisito" id="lblIdTipo"/>
@@ -55,11 +58,13 @@
                 </p:selectOneRadio>
                 <p:outputLabel value="Observacion" for="txtObservacion" id="lblObservacion"></p:outputLabel>
                 <p:inputText id="txtObservacion"  value="#{frmTipoRequisito.tipo.observacion}" required="true"></p:inputText>
-                <p:commandButton value="Nuevo" update="panelMenuTR">    
+                <p:commandButton value="Nuevo" actionListener="#{frmTipoRequisito.btnNuevoAction}" update=":vistaEditar">
                 </p:commandButton>
-                <p:commandButton value="Modificar" actionListener="#{frmTipoRequisito.btnModificarAction}" update="tablaTipoRequisito" ></p:commandButton>                
-                <p:commandButton value="Guardar" actionListener="#{frmTipoRequisito.btnGuardarAction}" update="tablaTipoRequisito"></p:commandButton> 
-                <p:commandButton value="Eliminar" actionListener="#{frmTipoRequisito.btnEliminarAction}" update="tablaTipoRequisito"></p:commandButton>
+                <p:commandButton value="Modificar" actionListener="#{frmTipoRequisito.btnModificarAction}" update=":tablaTipoRequisito :vistaEditar" ></p:commandButton>                
+                <p:commandButton value="Guardar" actionListener="#{frmTipoRequisito.btnGuardarAction}" update=":tablaTipoRequisito :vistaEditar"></p:commandButton> 
+                <p:commandButton value="Eliminar" actionListener="#{frmTipoRequisito.btnEliminarAction}" update=":tablaTipoRequisito :vistaEditar">
+       
+                </p:commandButton>
             </p:panelGrid>                        
         </h:form>
             </p:panel>
