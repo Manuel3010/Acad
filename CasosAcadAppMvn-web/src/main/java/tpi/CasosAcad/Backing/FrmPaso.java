@@ -17,6 +17,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
+import org.primefaces.context.RequestContext;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import tpi.CasosAcad.Entidades.Paso;
@@ -37,7 +38,7 @@ public class FrmPaso implements Serializable{
 
     private LazyDataModel<Paso> modeloPaso;
      
-    private Paso registroP =new Paso();
+    private Paso registroP;// =new Paso();
     private List<TipoPaso> tipos;
     
     @EJB
@@ -115,6 +116,26 @@ public class FrmPaso implements Serializable{
     }
     
     
+    public void limpiar(){
+      
+        RequestContext.getCurrentInstance().reset(":tabViewPaso:edAddPaso");
+        this.registroP= new Paso();
+    }
+    
+    public void btnNuevoAction(ActionEvent ae){
+    
+      try{
+      
+          limpiar();
+      
+      }catch(Exception e){
+      
+      
+      }
+    
+    }
+    
+    
           public void btnGuardarAction(ActionEvent ae){
         try {    
             if(this.registroP != null && this.pfl != null){
@@ -122,6 +143,7 @@ public class FrmPaso implements Serializable{
                 FacesMessage msj = new FacesMessage(FacesMessage.SEVERITY_INFO, resultado?"Creado con exito":"Error", null);
                 //this.agregar = !resultado;
                 FacesContext.getCurrentInstance().addMessage(null, msj);
+                limpiar();
             }
         } catch (Exception e) {
            
@@ -136,6 +158,7 @@ public class FrmPaso implements Serializable{
             FacesMessage msj = new FacesMessage(FacesMessage.SEVERITY_INFO, resultado?"Modificado con exito":"Error", null);
             //this.editar = resultado;
             FacesContext.getCurrentInstance().addMessage(null, msj);
+            limpiar();
         }catch(Exception e){
             System.err.println(""+e);
         }
@@ -147,6 +170,7 @@ public class FrmPaso implements Serializable{
                 boolean resultado = this.pfl.remove(registroP);
                 FacesMessage msj = new FacesMessage(FacesMessage.SEVERITY_INFO, resultado?"Eliminado con exito":"Error", null);
                 FacesContext.getCurrentInstance().addMessage(null, msj);
+                limpiar();
             }
         } catch (Exception e) {
         }
@@ -157,7 +181,7 @@ public class FrmPaso implements Serializable{
      * Creates a new instance of FrmPaso
      */
     public FrmPaso() {
-        
+        this.registroP=new Paso();
     }
 
     public LazyDataModel<Paso> getModeloPaso() {
