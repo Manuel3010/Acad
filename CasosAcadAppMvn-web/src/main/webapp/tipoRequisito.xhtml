@@ -63,9 +63,13 @@
                 <p:commandButton value="Modificar" actionListener="#{frmTipoRequisito.btnModificarAction}" update=":tablaTipoRequisito :vistaEditar" ></p:commandButton>                
                 <p:commandButton value="Guardar" actionListener="#{frmTipoRequisito.btnGuardarAction}" update=":tablaTipoRequisito :vistaEditar"></p:commandButton> 
                 <p:commandButton value="Eliminar" actionListener="#{frmTipoRequisito.btnEliminarAction}" update=":tablaTipoRequisito :vistaEditar">
-       
+                    <p:confirm header="Confirmacion" message="¿Está seguro que desea eliminar este elemento?" icon="ui-icon-alert" />
                 </p:commandButton>
-            </p:panelGrid>                        
+            </p:panelGrid>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+          </p:confirmDialog>
         </h:form>
             </p:panel>
         </div>

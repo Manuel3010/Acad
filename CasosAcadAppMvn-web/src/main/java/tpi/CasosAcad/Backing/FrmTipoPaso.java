@@ -16,6 +16,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
+import org.primefaces.context.RequestContext;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import tpi.CasosAcad.Entidades.TipoPaso;
@@ -35,7 +36,7 @@ public class FrmTipoPaso implements Serializable {
     @EJB
     private TipoPasoFacadeLocal tpfl;
     
-    private TipoPaso registro = new TipoPaso();
+    private TipoPaso registro;// = new TipoPaso();
     
     
     @PostConstruct
@@ -96,6 +97,23 @@ public class FrmTipoPaso implements Serializable {
         this.registro = registro;
     }
     
+    public void limpiar(){
+    
+        RequestContext.getCurrentInstance().reset(":vistaPaso");
+        this.registro= new TipoPaso();
+        
+    
+    }
+    
+    public void btnNuevoAction(ActionEvent ae){
+       try{
+           
+           limpiar();
+       }catch(Exception e){}
+        
+    
+    }
+    
     public void btnGuardarAction(ActionEvent ae){
         try {
         //    
@@ -106,6 +124,7 @@ public class FrmTipoPaso implements Serializable {
                 FacesMessage msj = new FacesMessage(FacesMessage.SEVERITY_INFO, resultado?"Creado con exito":"Error", null);
                 //this.agregar = !resultado;
                 FacesContext.getCurrentInstance().addMessage(null, msj);
+                limpiar();
             }
         } catch (Exception e) {
            
@@ -120,6 +139,7 @@ public class FrmTipoPaso implements Serializable {
             FacesMessage msj = new FacesMessage(FacesMessage.SEVERITY_INFO, resultado?"Modificado con exito":"Error", null);
             //this.editar = resultado;
             FacesContext.getCurrentInstance().addMessage(null, msj);
+            limpiar();
         }catch(Exception e){
             System.err.println(""+e);
         }
@@ -131,6 +151,7 @@ public class FrmTipoPaso implements Serializable {
                 boolean resultado = this.tpfl.remove(registro);
                 FacesMessage msj = new FacesMessage(FacesMessage.SEVERITY_INFO, resultado?"Eliminado con exito":"Error", null);
                 FacesContext.getCurrentInstance().addMessage(null, msj);
+                limpiar();
             }
         } catch (Exception e) {
         }
@@ -141,6 +162,9 @@ public class FrmTipoPaso implements Serializable {
      * Creates a new instance of FrmTipoPaso
      */
     public FrmTipoPaso() {
+    
+    this.registro= new TipoPaso();
+    
     }
     
 }
