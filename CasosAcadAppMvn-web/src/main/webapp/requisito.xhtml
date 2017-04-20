@@ -81,12 +81,19 @@
                               <f:selectItem itemLabel="Activo" itemValue="true" />
                               <f:selectItem itemLabel="Inactivo" itemValue="false" />
                             </p:selectOneRadio>
-                            <p:commandButton value="Nuevo" >    
+                            <p:commandButton value="Nuevo" actionListener="#{frmRequisito.btnNuevoAction}" update=":tabViewRequisito:edAddRequisito">    
                             </p:commandButton>
-                            <p:commandButton value="Modificar" actionListener="#{frmRequisito.btnModificarAction}" update="tablaRequisito" ></p:commandButton>                
-                            <p:commandButton value="Guardar" actionListener="#{frmRequisito.btnGuardarAction}" update="tablaRequisito"></p:commandButton> 
-                            <p:commandButton value="Eliminar" actionListener="#{frmRequisito.btnEliminarAction}" update="tablaRequisito :tabViewRequisito:edAddRequisito"></p:commandButton>          
-                        </p:panelGrid>       
+                            <p:commandButton value="Modificar" actionListener="#{frmRequisito.btnModificarAction}" update="tablaRequisito :tabViewRequisito:edAddRequisito"></p:commandButton>                
+                            <p:commandButton value="Guardar" actionListener="#{frmRequisito.btnGuardarAction}" update="tablaRequisito :tabViewRequisito:edAddRequisito"></p:commandButton> 
+                            <p:commandButton value="Eliminar" actionListener="#{frmRequisito.btnEliminarAction}" update="tablaRequisito :tabViewRequisito:edAddRequisito">
+                                <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar este elemento?" icon="ui-icon-alert" />
+                            </p:commandButton>          
+                        </p:panelGrid> 
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+          </p:confirmDialog>
+
                     </h:form>
                 </p:tab>
                 <p:tab title="Tabla Tipo Requisito" id="tabTipoRequisito">

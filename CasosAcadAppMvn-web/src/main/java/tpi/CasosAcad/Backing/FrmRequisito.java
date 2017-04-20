@@ -18,6 +18,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
+import org.primefaces.context.RequestContext;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import tpi.CasosAcad.Entidades.Requisito;
@@ -35,7 +36,7 @@ public class FrmRequisito implements Serializable {
 
     private LazyDataModel<Requisito> modeloRequisito;
     private LazyDataModel<TipoRequisito> modeloTipo;
-    private Requisito registro = new Requisito();
+    private Requisito registro; //= new Requisito();
     private TipoRequisito tipo;
     private List<TipoRequisito> tipos;
     
@@ -127,6 +128,19 @@ public class FrmRequisito implements Serializable {
              
     }
     
+    public void btnNuevoAction(ActionEvent ae){
+        try{
+        limpiar();
+        
+        }catch(Exception e){}
+    
+    }
+    
+    public void limpiar(){
+        RequestContext.getCurrentInstance().reset(":tabViewRequisito:edAddRequisito");
+        this.registro=new Requisito();
+    }
+    
      public Integer getTipoSeleccionado(){
      if(registro!= null){
             if(registro.getIdTipoRequisito()!= null){
@@ -162,6 +176,7 @@ public class FrmRequisito implements Serializable {
                 FacesMessage msj = new FacesMessage(FacesMessage.SEVERITY_INFO, resultado?"Creado con exito":"Error", null);
                 //this.agregar = !resultado;
                 FacesContext.getCurrentInstance().addMessage(null, msj);
+                limpiar();
             }
         } catch (Exception e) {
            
@@ -176,6 +191,7 @@ public class FrmRequisito implements Serializable {
             FacesMessage msj = new FacesMessage(FacesMessage.SEVERITY_INFO, resultado?"Modificado con exito":"Error", null);
             //this.editar = resultado;
             FacesContext.getCurrentInstance().addMessage(null, msj);
+            limpiar();
         }catch(Exception e){
             System.err.println(""+e);
         }
@@ -187,6 +203,7 @@ public class FrmRequisito implements Serializable {
                 boolean resultado = this.rfl.remove(registro);
                 FacesMessage msj = new FacesMessage(FacesMessage.SEVERITY_INFO, resultado?"Eliminado con exito":"Error", null);
                 FacesContext.getCurrentInstance().addMessage(null, msj);
+                 limpiar();
             }
         } catch (Exception e) {
         }
@@ -198,6 +215,7 @@ public class FrmRequisito implements Serializable {
      * Creates a new instance of FrmRequisito
      */
     public FrmRequisito() {
+        this.registro=new Requisito();
     }
 
     public LazyDataModel<Requisito> getModeloRequisito() {
