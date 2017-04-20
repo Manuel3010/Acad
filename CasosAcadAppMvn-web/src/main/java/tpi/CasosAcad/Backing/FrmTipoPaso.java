@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -114,7 +116,9 @@ public class FrmTipoPaso implements Serializable {
         try{
            
            limpiar();
-       }catch(Exception e){}
+       }catch(Exception e){
+       Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
+       }
         
     
     }
@@ -132,7 +136,7 @@ public class FrmTipoPaso implements Serializable {
                 limpiar();
             }
         } catch (Exception e) {
-           
+           Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
         }
      
       }
@@ -146,7 +150,7 @@ public class FrmTipoPaso implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msj);
             limpiar();
         }catch(Exception e){
-            System.err.println(""+e);
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
         }
     }
       
@@ -160,6 +164,8 @@ public class FrmTipoPaso implements Serializable {
                 editar=false;
             }
         } catch (Exception e) {
+        Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
+        
         }
     }
     
