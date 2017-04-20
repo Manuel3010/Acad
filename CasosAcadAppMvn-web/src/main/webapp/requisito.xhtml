@@ -41,7 +41,7 @@
                         <p:column headerText="Estado">
                             <p:outputLabel value="#{r.activo?'Activo':'Inactivo'}"></p:outputLabel>
                         </p:column>                
-                      <p:ajax update=":tabViewRequisito" event="rowSelect"></p:ajax> 
+                        <p:ajax update=":tabViewRequisito" event="rowSelect" listener="${frmRequisito.cambioTabla}"></p:ajax> 
                     </p:dataTable>    
                     <p:growl id="growl" life="2000" />
                 </h:form>
@@ -83,8 +83,8 @@
                             </p:selectOneRadio>
                             <p:commandButton value="Nuevo" actionListener="#{frmRequisito.btnNuevoAction}" update=":tabViewRequisito:edAddRequisito">    
                             </p:commandButton>
-                            <p:commandButton value="Modificar" actionListener="#{frmRequisito.btnModificarAction}" update="tablaRequisito :tabViewRequisito:edAddRequisito"></p:commandButton>                
-                            <p:commandButton value="Guardar" actionListener="#{frmRequisito.btnGuardarAction}" update="tablaRequisito :tabViewRequisito:edAddRequisito"></p:commandButton> 
+                            <p:commandButton value="Modificar" actionListener="#{frmRequisito.btnModificarAction}" update="tablaRequisito :tabViewRequisito:edAddRequisito" rendered="${frmRequisito.editar}"></p:commandButton>                
+                            <p:commandButton value="Guardar" actionListener="#{frmRequisito.btnGuardarAction}" update="tablaRequisito :tabViewRequisito:edAddRequisito" rendered="${!frmRequisito.editar}"></p:commandButton> 
                             <p:commandButton value="Eliminar" actionListener="#{frmRequisito.btnEliminarAction}" update="tablaRequisito :tabViewRequisito:edAddRequisito">
                                 <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar este elemento?" icon="ui-icon-alert" />
                             </p:commandButton>          

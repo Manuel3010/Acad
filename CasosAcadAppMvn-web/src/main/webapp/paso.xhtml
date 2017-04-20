@@ -29,7 +29,7 @@
                         <p:column headerText="Paso">
                             <p:outputLabel value="#{r.paso}"></p:outputLabel>
                         </p:column>                                      
-                        <p:ajax update=":tabViewPaso" event="rowSelect"></p:ajax> 
+                        <p:ajax update=":tabViewPaso" event="rowSelect" listener="${frmPaso.cambioTabla}"></p:ajax> 
                     </p:dataTable>    
                     <p:growl id="growl" life="2000" />
                 </h:form>
@@ -57,8 +57,8 @@
                             <p:inputText id="txtNombreP" value="#{frmPaso.registro.paso}" required="true"></p:inputText>   
                             <p:commandButton value="Nuevo" actionListener="#{frmPaso.btnNuevoAction}" update=":tabViewPaso:edAddPaso" >    
                             </p:commandButton>
-                            <p:commandButton value="Modificar" actionListener="#{frmPaso.btnModificarAction}" update="tablaPaso :tabViewPaso:edAddPaso" ></p:commandButton>                
-                            <p:commandButton value="Guardar" actionListener="#{frmPaso.btnGuardarAction}" update="tablaPaso :tabViewPaso:edAddPaso"></p:commandButton> 
+                            <p:commandButton value="Modificar" actionListener="#{frmPaso.btnModificarAction}" update="tablaPaso :tabViewPaso:edAddPaso" rendered="${frmPaso.editar}" ></p:commandButton>                
+                            <p:commandButton value="Guardar" actionListener="#{frmPaso.btnGuardarAction}" update="tablaPaso :tabViewPaso:edAddPaso" rendered="${!frmPaso.editar}"></p:commandButton> 
                             <p:commandButton value="Eliminar" actionListener="#{frmPaso.btnEliminarAction}" update="tablaPaso :tabViewPaso:edAddPaso">
                                  <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar este elemento?" icon="ui-icon-alert" />
                             </p:commandButton>          

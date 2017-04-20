@@ -34,8 +34,8 @@ public class FrmTipoRequisito implements Serializable {
     @EJB
     private TipoRequisitoFacadeLocal trfl;
     private TipoRequisito tipo;//= new TipoRequisito();
-    private boolean editar;
-    private boolean agregar;
+    private boolean editar=false;
+    private boolean agregar=false;
     public TipoRequisito getTipo() {
         return tipo;
     }
@@ -141,7 +141,7 @@ public class FrmTipoRequisito implements Serializable {
         try {
             if(this.tipo != null && this.trfl != null){
                 boolean resultado = this.trfl.remove(tipo);
-                
+                editar=!resultado;
                 FacesMessage msj = new FacesMessage(FacesMessage.SEVERITY_INFO, resultado?"Eliminado con exito":"Error", null);
                 FacesContext.getCurrentInstance().addMessage(null, msj);
                 limpiar();

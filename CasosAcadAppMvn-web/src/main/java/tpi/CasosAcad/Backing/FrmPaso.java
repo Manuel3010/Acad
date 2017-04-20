@@ -40,6 +40,7 @@ public class FrmPaso implements Serializable{
      
     private Paso registroP;// =new Paso();
     private List<TipoPaso> tipos;
+    private boolean editar= false;
     
     @EJB
     private PasoFacadeLocal pfl;
@@ -114,7 +115,9 @@ public class FrmPaso implements Serializable{
         }
     
     }
-    
+     public void cambioTabla(){
+        this.editar = true;
+    }
     
     public void limpiar(){
       
@@ -123,7 +126,7 @@ public class FrmPaso implements Serializable{
     }
     
     public void btnNuevoAction(ActionEvent ae){
-    
+    editar=false;
       try{
       
           limpiar();
@@ -168,9 +171,11 @@ public class FrmPaso implements Serializable{
         try {
             if(this.registroP != null && this.pfl != null){
                 boolean resultado = this.pfl.remove(registroP);
+                editar=!resultado;
                 FacesMessage msj = new FacesMessage(FacesMessage.SEVERITY_INFO, resultado?"Eliminado con exito":"Error", null);
                 FacesContext.getCurrentInstance().addMessage(null, msj);
                 limpiar();
+                
             }
         } catch (Exception e) {
         }
@@ -207,6 +212,14 @@ public class FrmPaso implements Serializable{
 
     public void setTipos(List<TipoPaso> tipos) {
         this.tipos = tipos;
+    }
+
+    public boolean isEditar() {
+        return editar;
+    }
+
+    public void setEditar(boolean editar) {
+        this.editar = editar;
     }
     
 }

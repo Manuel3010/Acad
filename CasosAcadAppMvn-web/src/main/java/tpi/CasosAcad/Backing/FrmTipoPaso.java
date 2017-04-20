@@ -37,6 +37,7 @@ public class FrmTipoPaso implements Serializable {
     private TipoPasoFacadeLocal tpfl;
     
     private TipoPaso registro;// = new TipoPaso();
+    private boolean editar=false;
     
     
     @PostConstruct
@@ -104,9 +105,13 @@ public class FrmTipoPaso implements Serializable {
         
     
     }
+     public void cambioTabla(){
+        this.editar = true;
+    }
     
     public void btnNuevoAction(ActionEvent ae){
-       try{
+     editar=false;
+        try{
            
            limpiar();
        }catch(Exception e){}
@@ -122,7 +127,7 @@ public class FrmTipoPaso implements Serializable {
                 boolean resultado = this.tpfl.create(registro);
                 //this.tipo=new TipoRequisito();
                 FacesMessage msj = new FacesMessage(FacesMessage.SEVERITY_INFO, resultado?"Creado con exito":"Error", null);
-                //this.agregar = !resultado;
+              //  this.editar = !resultado;
                 FacesContext.getCurrentInstance().addMessage(null, msj);
                 limpiar();
             }
@@ -137,7 +142,7 @@ public class FrmTipoPaso implements Serializable {
         try{
             boolean resultado = this.tpfl.editar(registro); 
             FacesMessage msj = new FacesMessage(FacesMessage.SEVERITY_INFO, resultado?"Modificado con exito":"Error", null);
-            //this.editar = resultado;
+            //this.editar = !resultado;
             FacesContext.getCurrentInstance().addMessage(null, msj);
             limpiar();
         }catch(Exception e){
@@ -152,6 +157,7 @@ public class FrmTipoPaso implements Serializable {
                 FacesMessage msj = new FacesMessage(FacesMessage.SEVERITY_INFO, resultado?"Eliminado con exito":"Error", null);
                 FacesContext.getCurrentInstance().addMessage(null, msj);
                 limpiar();
+                editar=false;
             }
         } catch (Exception e) {
         }
@@ -165,6 +171,14 @@ public class FrmTipoPaso implements Serializable {
     
     this.registro= new TipoPaso();
     
+    }
+
+    public boolean isEditar() {
+        return editar;
+    }
+
+    public void setEditar(boolean editar) {
+        this.editar = editar;
     }
     
 }

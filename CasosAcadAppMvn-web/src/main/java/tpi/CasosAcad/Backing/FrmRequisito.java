@@ -39,7 +39,7 @@ public class FrmRequisito implements Serializable {
     private Requisito registro; //= new Requisito();
     private TipoRequisito tipo;
     private List<TipoRequisito> tipos;
-    
+    private boolean editar=false;    
     
     @EJB
     private RequisitoFacadeLocal rfl;
@@ -127,8 +127,13 @@ public class FrmRequisito implements Serializable {
              
              
     }
+
+ public void cambioTabla(){
+        this.editar = true;
+    }
     
     public void btnNuevoAction(ActionEvent ae){
+        editar=false;
         try{
         limpiar();
         
@@ -201,9 +206,11 @@ public class FrmRequisito implements Serializable {
         try {
             if(this.registro != null && this.rfl != null){
                 boolean resultado = this.rfl.remove(registro);
+                editar=!resultado;
                 FacesMessage msj = new FacesMessage(FacesMessage.SEVERITY_INFO, resultado?"Eliminado con exito":"Error", null);
                 FacesContext.getCurrentInstance().addMessage(null, msj);
                  limpiar();
+                 
             }
         } catch (Exception e) {
         }
@@ -256,6 +263,14 @@ public class FrmRequisito implements Serializable {
 
     public void setTipos(List<TipoRequisito> tipos) {
         this.tipos = tipos;
+    }
+
+    public boolean isEditar() {
+        return editar;
+    }
+
+    public void setEditar(boolean editar) {
+        this.editar = editar;
     }
     
 }
