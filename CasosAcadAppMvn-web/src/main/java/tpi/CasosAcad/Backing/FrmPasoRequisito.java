@@ -9,15 +9,23 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
+import org.primefaces.context.RequestContext;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import tpi.CasosAcad.Entidades.Paso;
 import tpi.CasosAcad.Entidades.PasoRequisito;
 import tpi.CasosAcad.Entidades.Requisito;
+
 
 import tpi.CasosAcad.Sessions.PasoFacadeLocal;
 import tpi.CasosAcad.Sessions.PasoRequisitoFacadeLocal;
@@ -39,6 +47,8 @@ public class FrmPasoRequisito implements Serializable {
     private Requisito registroRequisito;
     private List<Paso> listaPasos;
     private List<Requisito> listaRequisito;
+
+   
 
     public List<Paso> getListaPasos() {
         return listaPasos;
@@ -181,8 +191,133 @@ public class FrmPasoRequisito implements Serializable {
         });
     }
     
+    public Integer getPasoSeleccionado(){
+     if(registroPasoRequisito!= null){
+            if(registroPasoRequisito.getIdPaso()!= null){
+                return this.registroPasoRequisito.getIdPaso().getIdPaso();
+            } else {
+                return null;
+            }         
+        } else {
+            return null;
+        }
+    }
+    
+    public void setPasoSeleccionado(Integer idPaso){
+        if(idPaso >= 0 && !this.listaPasos.isEmpty()){
+            for(Paso pe : this.getListaPasos()) {
+                if(Objects.equals(pe.getIdPaso(), idPaso)) {
+                    if(this.registroPasoRequisito.getIdPaso() != null) {
+                        this.registroPasoRequisito.getIdPaso().setIdPaso(idPaso);
+                    } else {
+                        this.registroPasoRequisito.setIdPaso(pe);
+                    }
+                }
+            }
+        }
+    
+    }
+    
+    public Integer getRequisitoSeleccionado(){
+     if(registroPasoRequisito!= null){
+            if(registroPasoRequisito.getIdRequisito()!= null){
+                return this.registroPasoRequisito.getIdRequisito().getIdRequisito();
+            } else {
+                return null;
+            }         
+        } else {
+            return null;
+        }
+    }
+    
+    public void setRequisitoSeleccionado(Integer idRequisito){
+        if(idRequisito >= 0 && !this.listaRequisito.isEmpty()){
+            for(Requisito re : this.getListaRequisito()) {
+                if(Objects.equals(re.getIdRequisito(), idRequisito)) {
+                    if(this.registroPasoRequisito.getIdRequisito() != null) {
+                        this.registroPasoRequisito.getIdRequisito().setIdRequisito(idRequisito);
+                    } else {
+                        this.registroPasoRequisito.setIdRequisito(re);
+                    }
+                }
+            }
+        }
+    
+    }
+    
+    public void limpiar(){
+      
+        RequestContext.getCurrentInstance().reset(":tabViewPasoRequisito:pasoRequisitoForm");
+        this.registroPasoRequisito= new PasoRequisito();
+    }
     
     
+    
+    
+    public void btnNuevoAction(ActionEvent ae){
+    
+    try{
+    
+    limpiar();
+    }catch(Exception e){
+    Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
+      
+    
+    }
+    
+    
+    
+    }
+    
+    
+    
+    
+    public void btnGuardarAction(ActionEvent ae){
+           
+    try{
+       if(this.registroPasoRequisito != null && this.prfl != null){
+                boolean resultado = this.prfl.create(registroPasoRequisito);
+                FacesMessage msj = new FacesMessage(FacesMessage.SEVERITY_INFO, resultado?"Creado con exito":"Error", null);
+                //this.agregar = !resultado;
+                FacesContext.getCurrentInstance().addMessage(null, msj);}
+                limpiar(); 
+    
+    }catch(Exception e){
+      Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
+            
+            
+    }    
+    
+    }   
+    
+    
+        public void btnModificarAction(ActionEvent ae){
+        try{
+            boolean resultado = this.prfl.editar(registroPasoRequisito); 
+            FacesMessage msj = new FacesMessage(FacesMessage.SEVERITY_INFO, resultado?"Modificado con exito":"Error", null);
+            //this.editar = resultado;
+            FacesContext.getCurrentInstance().addMessage(null, msj);
+            limpiar();
+        }catch(Exception e){
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
+        }
+    }
+
+            public void btnEliminarAction(ActionEvent ae) {
+        try {
+            if(this.registroPasoRequisito != null && this.prfl != null){
+                boolean resultado = this.prfl.remove(registroPasoRequisito);
+                //editar=!resultado;
+                FacesMessage msj = new FacesMessage(FacesMessage.SEVERITY_INFO, resultado?"Eliminado con exito":"Error", null);
+                FacesContext.getCurrentInstance().addMessage(null, msj);
+                limpiar();
+                
+            }
+        } catch (Exception e) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
+        }
+    }
+
     
     
     
@@ -201,6 +336,9 @@ public class FrmPasoRequisito implements Serializable {
      * Creates a new instance of FrmPasoRequisito
      */
     public FrmPasoRequisito() {
+    
+    this.registroPasoRequisito=new PasoRequisito();
+    
     }
 
     public LazyDataModel<PasoRequisito> getModeloPasoRequisito() {
@@ -250,5 +388,7 @@ public class FrmPasoRequisito implements Serializable {
     public void setRegistroRequisito(Requisito registroRequisito) {
         this.registroRequisito = registroRequisito;
     }
+
+  
     
 }
