@@ -26,7 +26,7 @@
                             <p:outputLabel value="#{r.paso}"></p:outputLabel>
                         </p:column>
                         <p:column headerText="Estado">
-                            <p:outputLabel value="#{r.activo}"></p:outputLabel>
+                            <p:outputLabel value="#{r.activo?'Activo':'Inactivo'}"></p:outputLabel>
                         </p:column>
                         <p:column headerText="Observacion">
                             <p:outputLabel value="#{r.observacion}"></p:outputLabel>
