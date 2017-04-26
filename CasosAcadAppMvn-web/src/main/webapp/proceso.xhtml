@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+         <p:panel header="Tipo de procesos para Casos Academicos" closable="false" toggleable="false" >
+            <h:panelGrid>
+                <h:form id="tablaProceso">
+                    <p:dataTable value="#{frmProceso.modelo}"
+                                 var="r"
+                                 rows="10"
+                                 paginator="true"
+                                 lazy="true"
+                                 selectionMode="single"
+                                 selection="#{frmProceso.registro}"
+                                 >
+                        <p:column headerText="ID">
+                            <p:outputLabel value="#{r.idProceso}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Nombre">
+                            <p:outputLabel value="#{r.nombre}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Responsable">
+                            <p:outputLabel value="#{r.responsable}"></p:outputLabel>
+                        </p:column>
+                        <p:ajax update=":vistaProceso" event="rowSelect" listener="${frmProceso.cambioTabla}" ></p:ajax>
+                    </p:dataTable>    
+                    <p:growl id="growl" life="2000" />
+                </h:form>
+            </h:panelGrid>
+        </p:panel>
+        
+        <div align="center">
+            <p:panel id="panelMenu">
+                
+                    <h:form id="vistaProceso">
+                <p:panelGrid columns="2" style="text-align:  center" >
+                
+                <p:outputLabel value="ID" for="txtIdProceso" id="lblIdProceso"/>
+                <p:inputText id="txtIdProceso"  value="#{frmProceso.registro.idProceso}" readonly="true"></p:inputText>
+                <p:outputLabel value="Nombre" for="txtNombre" id="lblNombre"></p:outputLabel>
+                <p:inputText id="txtNombre"  value="#{frmProceso.registro.nombre}" required="true"></p:inputText>
+                <p:outputLabel value="Responsable" for="txtResponsable" id="lblResponsable"></p:outputLabel>
+                <p:inputText id="txtResponsable"  value="#{frmProceso.registro.responsable}" required="true"></p:inputText>
+                <p:commandButton value="Nuevo" actionListener="#{frmProceso.btnNuevoAction}" update=":vistaProceso">    
+                </p:commandButton>
+                <p:commandButton value="Modificar" actionListener="#{frmProceso.btnModificarAction}" update=":tablaProceso :vistaProceso" rendered="${frmProceso.editar}">                   
+                </p:commandButton>        
+                <p:commandButton value="Guardar" actionListener="#{frmProceso.btnGuardarAction}" update=":tablaProceso :vistaProceso" rendered="${!frmProceso.editar}"></p:commandButton> 
+                <p:commandButton value="Eliminar" actionListener="#{frmProceso.btnEliminarAction}" update=":tablaProceso :vistaProceso" >
+                 <p:confirm header="Confirmacion" message="¿Está seguro que desea eliminar este elemento?" icon="ui-icon-alert" />
+                </p:commandButton>
+            </p:panelGrid>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+          </p:confirmDialog>
+          
+                        
+                    </h:form>
+                
+                
+            </p:panel>
+            
+            
+        </div>
+        
+        
+    </h:body>
+</html>
