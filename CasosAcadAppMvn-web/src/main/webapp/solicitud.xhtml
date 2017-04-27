@@ -1,30 +1,76 @@
-<?xml version='1.0' encoding='UTF-8' ?> 
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <h:outputStylesheet name="./css/default.css"/>
-        <h:outputStylesheet name="./css/cssLayout.css"/>
-        <title>Facelets Template</title>
+        <title>Facelet Title</title>
     </h:head>
-
     <h:body>
-
-        <div id="top">
-            <ui:insert name="top">Top</ui:insert>
+         <p:panel header="Solicitud Casos Academicos" closable="false" toggleable="false" >
+            <h:panelGrid>
+                <h:form id="tablaSolicitud">
+                    <p:dataTable value="#{frmSolicitud.modelo}"
+                                 var="r"
+                                 rows="10"
+                                 paginator="true"
+                                 lazy="true"
+                                 selectionMode="single"
+                                 selection="#{frmSolicitud.registro}"
+                                 >
+                        <p:column headerText="ID">
+                            <p:outputLabel value="#{r.idSolicitud}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Fecha de solicitud">
+                            <p:outputLabel value="#{r.fecha}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Responsable">
+                            <p:outputLabel value="#{r.solicitante}"></p:outputLabel>
+                        </p:column>
+                        <p:ajax update=":vistaSolicitud" event="rowSelect" listener="${frmSolicitud.cambioTabla}" ></p:ajax>
+                    </p:dataTable>    
+                    <p:growl id="growl" life="2000" />
+                </h:form>
+            </h:panelGrid>
+        </p:panel>
+        
+        <div align="center">
+            <p:panel id="panelMenu">
+                
+                    <h:form id="vistaSolicitud">
+                <p:panelGrid columns="2" style="text-align:  center" >
+                
+                <p:outputLabel value="ID" for="txtIdSolicitud" id="lblIdSolicitud"/>
+                <p:inputText id="txtIdSolicitud"  value="#{frmSolicitud.registro.idSolicitud}" readonly="true"></p:inputText>
+                <p:outputLabel value="Fecha" for="txtFecha" id="lblFecha"></p:outputLabel>
+                <p:inputText id="txtFecha"  value="#{frmSolicitud.registro.fecha}" required="true"></p:inputText>
+                <p:outputLabel value="Solicitante" for="txtSolicitante" id="lblSolicitante"></p:outputLabel>
+                <p:inputText id="txtSolicitante"  value="#{frmSolicitud.registro.solicitante}" required="true"></p:inputText>
+                <p:commandButton value="Nuevo" actionListener="#{frmSolicitud.btnNuevoAction}" update=":vistaSolicitud">    
+                </p:commandButton>
+                <p:commandButton value="Modificar" actionListener="#{frmSolicitud.btnModificarAction}" update=":tablaSolicitud :vistaSolicitud" rendered="${frmSolicitud.editar}">                   
+                </p:commandButton>        
+                <p:commandButton value="Guardar" actionListener="#{frmSolicitud.btnGuardarAction}" update=":tablaSolicitud :vistaSolicitud" rendered="${!frmSolicitud.editar}"></p:commandButton> 
+                <p:commandButton value="Eliminar" actionListener="#{frmSolicitud.btnEliminarAction}" update=":tablaSolicitud :vistaSolicitud" >
+                 <p:confirm header="Confirmacion" message="¿Está seguro que desea eliminar este elemento?" icon="ui-icon-alert" />
+                </p:commandButton>
+            </p:panelGrid>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+          </p:confirmDialog>
+          
+                        
+                    </h:form>
+                
+                
+            </p:panel>
+            
+            
         </div>
-
-        <div id="content" class="center_content">
-            <ui:insert name="content">Content</ui:insert>
-        </div>
-
-        <div id="bottom">
-            <ui:insert name="bottom">Bottom</ui:insert>
-        </div>
-
+        
+        
     </h:body>
-
 </html>
+

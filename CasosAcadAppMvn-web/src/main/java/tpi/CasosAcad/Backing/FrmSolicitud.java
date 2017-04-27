@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tpi.CasosAcad.Backing;
 
 import java.io.Serializable;
@@ -21,23 +16,23 @@ import javax.faces.view.ViewScoped;
 import org.primefaces.context.RequestContext;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
-import tpi.CasosAcad.Entidades.Proceso;
-import tpi.CasosAcad.Sessions.ProcesoFacadeLocal;
+import tpi.CasosAcad.Entidades.Solicitud;
+import tpi.CasosAcad.Sessions.SolicitudFacadeLocal;
 
 /**
  *
  * @author manuel/sigfrid
  */
-@Named(value = "frmProceso")
+@Named(value = "frmSolicitud")
 @ViewScoped
-public class FrmProceso implements Serializable {
+public class FrmSolicitud implements Serializable {
     
-    private LazyDataModel<Proceso> modelo;
+    private LazyDataModel<Solicitud> modelo;
    
     @EJB
-    private ProcesoFacadeLocal pfl;
+    private SolicitudFacadeLocal sfl;
     
-    private Proceso registro;
+    private Solicitud registro;
     private boolean editar=false;
     
     
@@ -45,33 +40,33 @@ public class FrmProceso implements Serializable {
     public void init(){
     
         
-         setModelo(new LazyDataModel<Proceso>(){
+         setModelo(new LazyDataModel<Solicitud>(){
 
             @Override
-            public List<Proceso> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+            public List<Solicitud> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
                 List salida = new ArrayList();
-                if(pfl != null){
-                    this.setRowCount(pfl.count());
+                if(sfl != null){
+                    this.setRowCount(sfl.count());
                     int[] rango = new int[2];
                     rango[0] = first;
                     rango[1] = pageSize;
-                    salida = pfl.findRange(rango);
+                    salida = sfl.findRange(rango);
                 }
                 return salida;
             }
 
             @Override
-            public Object getRowKey(Proceso object) {
-                return object.getIdProceso();
+            public Object getRowKey(Solicitud object) {
+                return object.getIdSolicitud();
             }
 
             @Override
-            public Proceso getRowData(String rowKey) {
+            public Solicitud getRowData(String rowKey) {
                 if(this.getWrappedData()!=null){
-                    List<Proceso> lista = (List<Proceso>) this.getWrappedData();
+                    List<Solicitud> lista = (List<Solicitud>) this.getWrappedData();
                     if(!lista.isEmpty()) {
-                        for(Proceso get : lista) {
-                            if(get.getIdProceso().compareTo(Integer.parseInt(rowKey))==0) {
+                        for(Solicitud get : lista) {
+                            if(get.getIdSolicitud().compareTo(Integer.parseInt(rowKey))==0) {
                                 return get;
                             }
                         }
@@ -83,26 +78,31 @@ public class FrmProceso implements Serializable {
     
     
     }
-    public LazyDataModel<Proceso> getModelo() {
+    public LazyDataModel<Solicitud> getModelo() {
         return modelo;
     }
 
-    public void setModelo(LazyDataModel<Proceso> modelo) {
+    public void setModelo(LazyDataModel<Solicitud> modelo) {
         this.modelo = modelo;
     }
 
-    public Proceso getRegistro() {
+    
+    
+    
+    
+    
+    public Solicitud getRegistro() {
         return registro;
     }
 
-    public void setRegistro(Proceso registro) {
+    public void setRegistro(Solicitud registro) {
         this.registro = registro;
     }
     
     public void limpiar(){
     
-        RequestContext.getCurrentInstance().reset(":vistaProceso");
-        this.registro= new Proceso();
+        RequestContext.getCurrentInstance().reset(":vistaSolicitud");
+        this.registro= new Solicitud();
         
     
     }
@@ -125,9 +125,9 @@ public class FrmProceso implements Serializable {
     public void btnGuardarAction(ActionEvent ae){
         try {
           
-            if(this.registro != null && this.pfl != null){
+            if(this.registro != null && this.sfl != null){
                 
-                boolean resultado = this.pfl.create(registro);
+                boolean resultado = this.sfl.create(registro);
                 FacesMessage msj = new FacesMessage(FacesMessage.SEVERITY_INFO, resultado?"Creado con exito":"Error", null);
               
                 FacesContext.getCurrentInstance().addMessage(null, msj);
@@ -142,7 +142,7 @@ public class FrmProceso implements Serializable {
      
       public void btnModificarAction(ActionEvent ae){
         try{
-            boolean resultado = this.pfl.editar(registro); 
+            boolean resultado = this.sfl.editar(registro); 
             FacesMessage msj = new FacesMessage(FacesMessage.SEVERITY_INFO, resultado?"Modificado con exito":"Error", null);
            
             FacesContext.getCurrentInstance().addMessage(null, msj);
@@ -154,8 +154,8 @@ public class FrmProceso implements Serializable {
       
          public void btnEliminarAction(ActionEvent ae) {
         try {
-            if(this.registro != null && this.pfl != null){
-                boolean resultado = this.pfl.remove(registro);
+            if(this.registro != null && this.sfl != null){
+                boolean resultado = this.sfl.remove(registro);
                 FacesMessage msj = new FacesMessage(FacesMessage.SEVERITY_INFO, resultado?"Eliminado con exito":"Error", null);
                 FacesContext.getCurrentInstance().addMessage(null, msj);
                 limpiar();
@@ -170,9 +170,9 @@ public class FrmProceso implements Serializable {
 
     
 
-    public FrmProceso() {
+    public FrmSolicitud() {
     
-    this.registro= new Proceso();
+    this.registro= new Solicitud();
     
     }
 
