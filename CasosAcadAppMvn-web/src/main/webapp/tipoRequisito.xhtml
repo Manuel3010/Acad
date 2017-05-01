@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        
+       <p:panel header="Tipo de Requisito para Casos Academicos" closable="false" toggleable="false" >
+            <h:panelGrid>
+                <h:form id="tablaTipoRequisito">
+                    <p:dataTable value="#{frmTipoRequisito.modelo}"
+                                 var="tipo"
+                                 rows="10"
+                                 paginator="true"
+                                 lazy="true"
+                                 selectionMode="single"
+                                 selection="#{frmTipoRequisito.tipo}"
+                                 
+                                 widgetVar="dtTipoRequisito"
+                                 >
+                        <p:column headerText="ID">
+                            <p:outputLabel value="#{tipo.idTipoRequisito}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Nombre">
+                            <p:outputLabel value="#{tipo.nombre}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Estado">
+                            <p:outputLabel value="#{tipo.activo?'Activo':'Inactivo'}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Observacion">
+                            <p:outputLabel value="#{tipo.observacion}"></p:outputLabel>
+                        </p:column>
+                        <p:ajax update=":vistaEditar" event="rowSelect" listener="${frmTipoRequisito.cambioTabla}"></p:ajax>
+                    </p:dataTable>    
+                    <p:growl id="growl" life="2000" />
+                    
+                </h:form>
+                
+            </h:panelGrid>
+        </p:panel>
+        <div align="center">
+            <p:panel id="panelMenuTR">
+        <h:form id="vistaEditar" style="text-align: center" >         
+            <p:panelGrid columns="2" style="text-align:  center" >
+                
+                <p:outputLabel value="ID" for="txtIdTipoRequisito" id="lblIdTipo"/>
+                <p:inputText id="txtIdTipoRequisito"  value="#{frmTipoRequisito.tipo.idTipoRequisito}" readonly="true"></p:inputText>
+                <p:outputLabel value="Nombre" for="txtNombre" id="lblNombre"></p:outputLabel>
+                <p:inputText id="txtNombre"  value="#{frmTipoRequisito.tipo.nombre}" required="true"></p:inputText>
+                <p:outputLabel value="Estado" for="rbEstado" id="lblEstado"></p:outputLabel>
+                <p:selectOneRadio id="rbEstado" value="#{frmTipoRequisito.tipo.activo}" required="true" >
+                    <f:selectItem itemLabel="Activo" itemValue="true" />
+                    <f:selectItem itemLabel="Inactivo" itemValue="false" />
+                </p:selectOneRadio>
+                <p:outputLabel value="Observacion" for="txtObservacion" id="lblObservacion"></p:outputLabel>
+                <p:inputText id="txtObservacion"  value="#{frmTipoRequisito.tipo.observacion}" required="true"></p:inputText>
+                <p:commandButton value="Nuevo" actionListener="#{frmTipoRequisito.btnNuevoAction}" update=":vistaEditar">
+                </p:commandButton>
+                <p:commandButton value="Modificar" actionListener="#{frmTipoRequisito.btnModificarAction}" update=":tablaTipoRequisito :vistaEditar" rendered="${frmTipoRequisito.editar}" ></p:commandButton>                
+                <p:commandButton value="Guardar" actionListener="#{frmTipoRequisito.btnGuardarAction}" update=":tablaTipoRequisito :vistaEditar" rendered="${!frmTipoRequisito.editar}"></p:commandButton> 
+                <p:commandButton value="Eliminar" actionListener="#{frmTipoRequisito.btnEliminarAction}" update=":tablaTipoRequisito :vistaEditar">
+                    <p:confirm header="Confirmacion" message="¿Está seguro que desea eliminar este elemento?" icon="ui-icon-alert" />
+                </p:commandButton>
+            </p:panelGrid>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+          </p:confirmDialog>
+        </h:form>
+            </p:panel>
+        </div>
+    </h:body>
+</html>
+

@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+       <p:panel header="Pasos para Casos Academicos" closable="false" toggleable="false" >
+            <h:panelGrid>
+                <h:form id="tablaPaso">
+                    <p:dataTable value="#{frmPaso.modeloPaso}"
+                                 var="r"
+                                 rows="10"
+                                 paginator="true"
+                                 lazy="true"
+                                 selectionMode="single"
+                                 selection="#{frmPaso.registro}"
+                                 style="color: #ff5252"
+                                 >
+                        <p:column headerText="ID">
+                            <p:outputLabel value="#{r.idPaso}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Tipo Paso">
+                            <p:outputLabel value="#{r.idTipoPaso.paso}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Paso">
+                            <p:outputLabel value="#{r.paso}"></p:outputLabel>
+                        </p:column>                                      
+                        <p:ajax update=":tabViewPaso" event="rowSelect" listener="${frmPaso.cambioTabla}"></p:ajax> 
+                    </p:dataTable>    
+                    <p:growl id="growl" life="2000" />
+                </h:form>
+            </h:panelGrid>
+        </p:panel>
+        
+        <div>
+        <p:tabView id="tabViewPaso"> 
+           <p:tab title="Formulario Paso" id="tabPaso"> 
+                <h:form id="edAddPaso">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="ID Paso" for="txtIdPaso" id="lblIdPaso"></p:outputLabel>
+                            <p:inputText id="txtIdPaso" value="#{frmPaso.registro.idPaso}" readonly="true"></p:inputText>
+                            <p:outputLabel value="Tipo Paso" for="cbTipoPaso" id="lblTipoPaso"></p:outputLabel>
+                            <h:selectOneMenu id="cbTipoPaso" value="#{frmPaso.tipoSeleccionado}" 
+                                                style="width: 200px" required="true" styleClass="center_content" >
+                                <f:selectItem itemLabel="Seleccione Tipo" itemValue="" />
+                                <f:selectItems value="#{frmPaso.tipos}" 
+                                               var="tipo" 
+                                               itemLabel="#{tipo.paso}" 
+                                               itemValue="#{tipo.idTipoPaso}">
+                                </f:selectItems>
+                            </h:selectOneMenu>
+                            <p:outputLabel value="Nombre" for="txtNombreP" id="lblNombreP"></p:outputLabel>
+                            <p:inputText id="txtNombreP" value="#{frmPaso.registro.paso}" required="true"></p:inputText>   
+                            <p:commandButton value="Nuevo" actionListener="#{frmPaso.btnNuevoAction}" update=":tabViewPaso:edAddPaso" >    
+                            </p:commandButton>
+                            <p:commandButton value="Modificar" actionListener="#{frmPaso.btnModificarAction}" update="tablaPaso :tabViewPaso:edAddPaso" rendered="${frmPaso.editar}" ></p:commandButton>                
+                            <p:commandButton value="Guardar" actionListener="#{frmPaso.btnGuardarAction}" update="tablaPaso :tabViewPaso:edAddPaso" rendered="${!frmPaso.editar}"></p:commandButton> 
+                            <p:commandButton value="Eliminar" actionListener="#{frmPaso.btnEliminarAction}" update="tablaPaso :tabViewPaso:edAddPaso">
+                                 <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar este elemento?" icon="ui-icon-alert" />
+                            </p:commandButton>          
+                        </p:panelGrid> 
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog>
+                    </h:form>                
+           </p:tab> 
+            <p:tab title="Tabla Tipos de Paso" id="tabTipoPaso">
+                   <h:panelGrid>
+                <h:form id="tablaTipoPaso">
+                    <p:dataTable value="#{frmTipoPaso.modelo}"
+                                 var="r"
+                                 rows="5"
+                                 paginator="true"
+                                 lazy="true"                               
+                                 >
+                        <p:column headerText="ID">
+                            <p:outputLabel value="#{r.idTipoPaso}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Nombre">
+                            <p:outputLabel value="#{r.paso}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Estado">
+                            <p:outputLabel value="#{r.activo?'Activo':'Inactivo'}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Observacion">
+                            <p:outputLabel value="#{r.observacion}"></p:outputLabel>
+                        </p:column>                        
+                    </p:dataTable>                    
+                </h:form>
+            </h:panelGrid>                                
+            </p:tab>
+       </p:tabView>                        
+        </div>
+  
+    </h:body>
+</html>
+
