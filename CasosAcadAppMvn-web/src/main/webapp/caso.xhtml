@@ -107,8 +107,11 @@
                         <p:column headerText="Nombre">
                             <p:outputLabel value="#{pro.nombre}"></p:outputLabel>
                         </p:column>
-                        <p:column headerText="Responsable">
-                            <p:outputLabel value="#{pro.responsable}"></p:outputLabel>
+                         <p:column headerText="Estado">
+                            <p:outputLabel value="#{pro.activo?'Activo':'Inactivo'}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Descripcion">
+                            <p:outputLabel value="#{pro.descripcion}"></p:outputLabel>
                         </p:column>                        
                     </p:dataTable>                        
                 </h:form>
