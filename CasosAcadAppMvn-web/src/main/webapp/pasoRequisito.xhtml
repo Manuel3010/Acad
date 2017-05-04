@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <p:panel header="Requisitos de los Pasos para Casos Academicos" closable="false" toggleable="false" >
+            <h:panelGrid>
+                <h:form id="tablaPasoRequisito">
+                    <p:dataTable value="#{frmPasoRequisito.modeloPasoRequisito}"
+                                 var="r"
+                                 rows="10"
+                                 paginator="true"
+                                 lazy="true"
+                                 selectionMode="single"
+                                 selection="#{frmPasoRequisito.registroPasoRequisito}"
+
+                                 >
+                        <p:column headerText="ID">
+                            <p:outputLabel value="#{r.idPasoRequisito}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Paso">
+                            <p:outputLabel value="#{r.idPaso.paso}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Requisito">
+                            <p:outputLabel value="#{r.idRequisito.requisito}"></p:outputLabel>
+                        </p:column>
+                                        
+                       <p:ajax update=":tabViewPasoRequisito" event="rowSelect"></p:ajax>  
+                    </p:dataTable>    
+                    <p:growl id="growl" life="2000" />
+                </h:form>
+            </h:panelGrid>
+        </p:panel>
+        <p:tabView id="tabViewPasoRequisito">
+        
+            <p:tab title="Formulario Requisitos para Pasos">
+                <h:form id="pasoRequisitoForm">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="ID Paso Requisito" for="txtIdPasoRequisito" id="lblIdPasoRequisito"></p:outputLabel>
+                            <p:inputText id="txtIdPasoRequisito" value="#{frmPasoRequisito.registroPasoRequisito.idPasoRequisito}" readonly="true"></p:inputText> 
+                            <p:outputLabel value="Pasos" for="cbPaso" id="lblPaso"></p:outputLabel>
+                            <h:selectOneMenu id="cbPaso" value="#{frmPasoRequisito.pasoSeleccionado}" 
+                                                style="width: 280px" required="true" styleClass="center_content" >
+                                <f:selectItem itemLabel="Seleccione un Paso" itemValue="" />
+                                <f:selectItems value="#{frmPasoRequisito.listaPasos}" 
+                                               var="tipo" 
+                                               itemLabel="#{tipo.paso}" 
+                                               itemValue="#{tipo.idPaso}">
+                                </f:selectItems>
+                            </h:selectOneMenu>
+                           
+                             <p:outputLabel value="Requisitos" for="cbRequisito" id="lblRequisito"></p:outputLabel>
+                             <h:selectOneMenu id="cbRequisito" value="#{frmPasoRequisito.requisitoSeleccionado}" 
+                                                style="width: 280px" required="true" styleClass="center_content" >
+                                <f:selectItem itemLabel="Seleccione un Requisito" itemValue="" />
+                                <f:selectItems value="#{frmPasoRequisito.listaRequisito}" 
+                                               var="tipo" 
+                                               itemLabel="#{tipo.requisito}" 
+                                               itemValue="#{tipo.idRequisito}">
+                                </f:selectItems>
+                            </h:selectOneMenu> 
+                           <p:commandButton value="Guardar" actionListener="#{frmPasoRequisito.btnGuardarAction}" update="tablaPasoRequisito :tabViewPasoRequisito:pasoRequisitoForm" ></p:commandButton> 
+                           <p:commandButton value="Nuevo" actionListener="#{frmPasoRequisito.btnNuevoAction}" update=":tabViewPasoRequisito:pasoRequisitoForm" >    
+                            </p:commandButton>
+                          <p:commandButton value="Modificar" actionListener="#{frmPasoRequisito.btnModificarAction}" update="tablaPasoRequisito :tabViewPasoRequisito:pasoRequisitoForm" ></p:commandButton>                
+                            
+                            <p:commandButton value="Eliminar" actionListener="#{frmPasoRequisito.btnEliminarAction}" update="tablaPasoRequisito :tabViewPasoRequisito:pasoRequisitoForm">
+                                 <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar este elemento?" icon="ui-icon-alert" />
+                            </p:commandButton>          
+                     
+                   <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                   <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                     <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog> 
+                    
+                   </p:panelGrid> 
+                    </h:form>                       
+            </p:tab>
+             <p:tab title="Pasos">
+                 <h:panelGrid>
+                <h:form id="tablaPaso">
+                    <p:dataTable value="#{frmPasoRequisito.modeloPaso}"
+                                 var="r"
+                                 rows="10"
+                                 paginator="true"
+                                 lazy="true"
+                                 selectionMode="single"
+                                 selection="#{frmPasoRequisito.registroPaso}"
+                                 style="color: #ff5252"
+                                 >
+                        <p:column headerText="ID">
+                            <p:outputLabel value="#{r.idPaso}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Tipo Paso">
+                            <p:outputLabel value="#{r.idTipoPaso.paso}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Paso">
+                            <p:outputLabel value="#{r.paso}"></p:outputLabel>
+                        </p:column>                                      
+                     <p:ajax update=":tabViewPasoRequisito:pasoRequisitoForm" event="rowSelect"></p:ajax> 
+                    </p:dataTable>    
+                   
+                </h:form>
+            </h:panelGrid>
+            </p:tab>
+                                    
+            <p:tab title="Requisitos">
+                <h:panelGrid>
+                <h:form id="tablaRequisito">
+                    <p:dataTable value="#{frmPasoRequisito.modeloRequisito}"
+                                 var="r"
+                                 rows="10"
+                                 paginator="true"
+                                 lazy="true"
+                                 selectionMode="single"
+                                 selection="#{frmPasoRequisito.registroRequisito}"
+                                 style="color: #ff5252"
+                                 >
+                        <p:column headerText="ID">
+                            <p:outputLabel value="#{r.idRequisito}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Tipo Requisito">
+                            <p:outputLabel value="#{r.idTipoRequisito.nombre}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Requisito">
+                            <p:outputLabel value="#{r.requisito}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Descripcion">
+                            <p:outputLabel value="#{r.descripcion}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Texto Publico">
+                            <p:outputLabel value="#{r.textoPublico}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Obligatorio">
+                            <p:outputLabel value="#{r.obligatorio?'Si':'No'}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Estado">
+                            <p:outputLabel value="#{r.activo?'Activo':'Inactivo'}"></p:outputLabel>
+                        </p:column>                
+                  <p:ajax update=":tabViewPasoRequisito:pasoRequisitoForm" event="rowSelect"></p:ajax>  
+                    </p:dataTable>    
+                  
+                </h:form>
+            </h:panelGrid>
+            </p:tab>
+           
+            
+            
+        </p:tabView>
+    </h:body>
+</html>
+
