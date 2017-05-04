@@ -97,6 +97,7 @@ public class FrmProceso implements Serializable {
 
     public void setRegistro(Proceso registro) {
         this.registro = registro;
+        
     }
     
     public void limpiar(){

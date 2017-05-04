@@ -1,3 +1,4 @@
+
  /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -41,6 +42,22 @@ public class FrmRequisito implements Serializable {
     private Requisito registro; //= new Requisito();
     private TipoRequisito tipo;
     private List<TipoRequisito> tipos;
+
+    public TipoRequisito getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoRequisito tipo) {
+        this.tipo = tipo;
+    }
+
+    public List<TipoRequisito> getTipos() {
+        return tipos;
+    }
+
+    public void setTipos(List<TipoRequisito> tipos) {
+        this.tipos = tipos;
+    }
     private boolean editar=false;    
     
     @EJB
@@ -256,28 +273,9 @@ public class FrmRequisito implements Serializable {
 
     
     
-    public TipoRequisito getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(TipoRequisito tipo) {
-        this.tipo = tipo;
-    }
-
-    public List<TipoRequisito> getTipos() {
-        return tipos;
-    }
-
-    public void setTipos(List<TipoRequisito> tipos) {
-        this.tipos = tipos;
-    }
-
-    public boolean isEditar() {
-        return editar;
-    }
-
-    public void setEditar(boolean editar) {
-        this.editar = editar;
-    }
-    
 }
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
