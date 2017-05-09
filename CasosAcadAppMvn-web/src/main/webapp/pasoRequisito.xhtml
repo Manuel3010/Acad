@@ -64,11 +64,11 @@
                                                itemValue="#{tipo.idRequisito}">
                                 </f:selectItems>
                             </h:selectOneMenu> 
-                           <p:commandButton value="Guardar" actionListener="#{frmPasoRequisito.btnGuardarAction}" update="tablaPasoRequisito :tabViewPasoRequisito:pasoRequisitoForm" ></p:commandButton> 
                            <p:commandButton value="Nuevo" actionListener="#{frmPasoRequisito.btnNuevoAction}" update=":tabViewPasoRequisito:pasoRequisitoForm" >    
                             </p:commandButton>
-                          <p:commandButton value="Modificar" actionListener="#{frmPasoRequisito.btnModificarAction}" update="tablaPasoRequisito :tabViewPasoRequisito:pasoRequisitoForm" ></p:commandButton>                
-                            
+                           <p:commandButton value="Modificar" actionListener="#{frmPasoRequisito.btnModificarAction}" update="tablaPasoRequisito :tabViewPasoRequisito:pasoRequisitoForm" rendered="${frmProceso.editar}" ></p:commandButton>                
+                            <p:commandButton value="Guardar" actionListener="#{frmPasoRequisito.btnGuardarAction}" update="tablaPasoRequisito :tabViewPasoRequisito:pasoRequisitoForm" rendered="${!frmProceso.editar}"></p:commandButton> 
+                           
                             <p:commandButton value="Eliminar" actionListener="#{frmPasoRequisito.btnEliminarAction}" update="tablaPasoRequisito :tabViewPasoRequisito:pasoRequisitoForm">
                                  <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar este elemento?" icon="ui-icon-alert" />
                             </p:commandButton>          
@@ -77,8 +77,9 @@
                    <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                      <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                     </p:confirmDialog> 
-                           
-                           
+                          </p:panelGrid> 
+                    </h:form>  
+                     </p:tab>      
                            
                             
                             <!--<p:outputLabel value="Paso" for="txtPaso" id="lblPaso"></p:outputLabel>
@@ -98,18 +99,7 @@
         <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
         <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                     </p:confirmDialog> -->
-                   </p:panelGrid> 
-                    </h:form>               
-                
-                
-                
-                
-            </p:tab>
-            
-            
-            
-            
-            
+
              <p:tab title="Pasos">
                  <h:panelGrid>
                 <h:form id="tablaPaso">

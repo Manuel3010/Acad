@@ -47,6 +47,7 @@ public class FrmPasoRequisito implements Serializable {
     private Requisito registroRequisito;
     private List<Paso> listaPasos;
     private List<Requisito> listaRequisito;
+    private boolean editar=false;
 
    
 
@@ -387,6 +388,20 @@ public class FrmPasoRequisito implements Serializable {
 
     public void setRegistroRequisito(Requisito registroRequisito) {
         this.registroRequisito = registroRequisito;
+    }
+
+    /**
+     * @return the editar
+     */
+    public boolean isEditar() {
+        return editar;
+    }
+
+    /**
+     * @param editar the editar to set
+     */
+    public void setEditar(boolean editar) {
+        this.editar = editar;
     }
 
   
