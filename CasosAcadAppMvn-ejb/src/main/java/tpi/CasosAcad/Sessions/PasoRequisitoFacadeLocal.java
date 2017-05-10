@@ -27,6 +27,8 @@ public interface PasoRequisitoFacadeLocal {
     PasoRequisito find(Object id);
 
     List<PasoRequisito> findAll();
+    
+  //  List<PasoRequisito> findByIdPaso(); ////////////
 
     List<PasoRequisito> findRange(int[] range);
 

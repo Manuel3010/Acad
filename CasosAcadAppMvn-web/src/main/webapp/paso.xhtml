@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Interfaz de Mantenimiento de Pasos</title>
     </h:head>
     <h:body>
        <p:panel header="Pasos para Casos Academicos" closable="false" toggleable="false" >
@@ -40,9 +40,9 @@
         <p:tabView id="tabViewPaso"> 
            <p:tab title="Formulario Paso" id="tabPaso"> 
                 <h:form id="edAddPaso">
-                        <p:panelGrid columns="2">
+                    <p:panelGrid columns="2"> 
                             <p:outputLabel value="ID Paso" for="txtIdPaso" id="lblIdPaso"></p:outputLabel>
-                            <p:inputText id="txtIdPaso" value="#{frmPaso.registro.idPaso}" readonly="true"></p:inputText>
+                            <p:inputText id="txtIdPaso" value="#{frmPaso.registro.idPaso}" readonly="true" ></p:inputText>
                             <p:outputLabel value="Tipo Paso" for="cbTipoPaso" id="lblTipoPaso"></p:outputLabel>
                             <h:selectOneMenu id="cbTipoPaso" value="#{frmPaso.tipoSeleccionado}" 
                                                 style="width: 200px" required="true" styleClass="center_content" >
@@ -94,6 +94,30 @@
                 </h:form>
             </h:panelGrid>                                
             </p:tab>
+            <p:tab title="Requisitos para el paso" id="tabRequisitosDelPaso">
+                   <h:panelGrid>
+                <h:form id="listaRequisitos">
+                    
+                    <p:dataList value="#{frmPasoRequisito.modeloPasoRequisito}" var="paso" type="unordered" itemType="none" paginator="true" rows="10" styleClass="paginated">
+        <f:facet name="header">
+            lista de pasos
+        </f:facet>
+        <!-- <p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail" styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px"> -->
+        <!--<f:setPropertyActionListener value="{frmPaso.modeloPaso}" target="{frmPaso.modeloPaso}" />-->
+        <!--<h:outputText value="{R.idPaso}" /> -->
+        <!-- </p:commandLink> -->
+        <h:outputText value="#{paso.idPaso}, #{paso.idPaso.paso}" style="display:inline-block"/>
+    </p:dataList>
+                    
+                    
+                    
+                                  
+                </h:form>
+            </h:panelGrid>                                
+            </p:tab>
+
+            
+            
        </p:tabView>                        
         </div>
   

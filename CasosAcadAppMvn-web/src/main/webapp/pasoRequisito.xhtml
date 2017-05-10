@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Interfaz mantenimiento Paso-Requisito</title>
     </h:head>
     <h:body>
         <p:panel header="Requisitos de los Pasos para Casos Academicos" closable="false" toggleable="false" >
@@ -23,7 +23,7 @@
                         <p:column headerText="ID">
                             <p:outputLabel value="#{r.idPasoRequisito}"></p:outputLabel>
                         </p:column>
-                        <p:column headerText="Paso">
+                        <p:column headerText="Paso" sortBy="#{r.idPaso.paso}">
                             <p:outputLabel value="#{r.idPaso.paso}"></p:outputLabel>
                         </p:column>
                         <p:column headerText="Requisito">

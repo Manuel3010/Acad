@@ -40,6 +40,7 @@ import tpi.CasosAcad.Sessions.RequisitoFacadeLocal;
 public class FrmPasoRequisito implements Serializable {
 
     private LazyDataModel<PasoRequisito> modeloPasoRequisito;
+    private LazyDataModel<PasoRequisito> modeloConsulta;
     private LazyDataModel<Paso> modeloPaso;
     private LazyDataModel<Requisito> modeloRequisito;
     private PasoRequisito registroPasoRequisito;
@@ -47,6 +48,8 @@ public class FrmPasoRequisito implements Serializable {
     private Requisito registroRequisito;
     private List<Paso> listaPasos;
     private List<Requisito> listaRequisito;
+    private List<PasoRequisito> consultaPaso;
+    
     private boolean editar=false;
 
    
@@ -67,8 +70,17 @@ public class FrmPasoRequisito implements Serializable {
         this.listaRequisito = listaRequisito;
     }
     
+    public List<PasoRequisito> getConsultaPaso() {
+        return consultaPaso;
+    }
+
+    public void setConsultaPaso(List<PasoRequisito> consultaPaso) {
+        this.consultaPaso = consultaPaso;
+    }
     @EJB
     private PasoRequisitoFacadeLocal prfl;
+    @EJB
+    private PasoRequisitoFacadeLocal prflc;
     @EJB
     private PasoFacadeLocal pfl;
     @EJB
@@ -80,6 +92,7 @@ public class FrmPasoRequisito implements Serializable {
              //this.tipos= trfl.findAll();
                this.listaPasos= pfl.findAll();
                this.listaRequisito= rfl.findAll();
+              // this.consultaPaso=prflc.findByIdPaso();
              
              
              setModeloPasoRequisito(new LazyDataModel<PasoRequisito>(){
@@ -190,6 +203,7 @@ public class FrmPasoRequisito implements Serializable {
                 return null;
             }       
         });
+
     }
     
     public Integer getPasoSeleccionado(){
@@ -402,6 +416,20 @@ public class FrmPasoRequisito implements Serializable {
      */
     public void setEditar(boolean editar) {
         this.editar = editar;
+    }
+
+    /**
+     * @return the modeloConsulta
+     */
+    public LazyDataModel<PasoRequisito> getModeloConsulta() {
+        return modeloConsulta;
+    }
+
+    /**
+     * @param modeloConsulta the modeloConsulta to set
+     */
+    public void setModeloConsulta(LazyDataModel<PasoRequisito> modeloConsulta) {
+        this.modeloConsulta = modeloConsulta;
     }
 
   
