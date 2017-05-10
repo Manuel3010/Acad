@@ -73,17 +73,23 @@ public class pasoRequisitoRecurso {
     return salida;    
     }   
     
+    @GET
+    @Path("paso/{idPaso}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<PasoRequisito> findByIdPaso(@PathParam("idPaso")Integer id){
+        List salida= new ArrayList();
+        try{
+        if(prfl!=null){       
+        salida= prfl.findByIdPaso(id);
+        }
+        
+        }catch(Exception e){
+        Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
+        }
+    
+    return salida;    
+    }
     
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        
 }

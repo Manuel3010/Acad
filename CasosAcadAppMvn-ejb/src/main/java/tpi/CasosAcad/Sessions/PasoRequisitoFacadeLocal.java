@@ -7,6 +7,7 @@ package tpi.CasosAcad.Sessions;
 
 import java.util.List;
 import javax.ejb.Local;
+import tpi.CasosAcad.Entidades.Paso;
 import tpi.CasosAcad.Entidades.PasoRequisito;
 
 /**
@@ -29,6 +30,8 @@ public interface PasoRequisitoFacadeLocal {
     List<PasoRequisito> findAll();
 
     List<PasoRequisito> findRange(int[] range);
+    
+    List<PasoRequisito> findByIdPaso(Object id);
 
     int count();
     
