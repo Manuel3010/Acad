@@ -46,15 +46,19 @@
                 
                 <p:outputLabel value="ID" for="txtIdTipoPaso" id="lblIdTipo"/>
                 <p:inputText id="txtIdTipoPaso"  value="#{frmTipoPaso.registro.idTipoPaso}" readonly="true"></p:inputText>
+             
                 <p:outputLabel value="Nombre" for="txtNombre" id="lblNombre"></p:outputLabel>
                 <p:inputText id="txtNombre"  value="#{frmTipoPaso.registro.paso}" required="true"></p:inputText>
+                
                 <p:outputLabel value="Estado" for="rbEstado" id="lblEstado"></p:outputLabel>
                 <p:selectOneRadio id="rbEstado" value="#{frmTipoPaso.registro.activo}" required="true" >
                     <f:selectItem itemLabel="Activo" itemValue="true" />
                     <f:selectItem itemLabel="Inactivo" itemValue="false" />
                 </p:selectOneRadio>
+                
                 <p:outputLabel value="Observacion" for="txtObservacion" id="lblObservacion"></p:outputLabel>
-                <p:inputText id="txtObservacion"  value="#{frmTipoPaso.registro.observacion}" required="true"></p:inputText>
+                <p:inputTextarea id="txtObservacion"  value="#{frmTipoPaso.registro.observacion}" rows="6" cols="33" required="true"></p:inputTextarea>
+                
                 <p:commandButton value="Nuevo" actionListener="#{frmTipoPaso.btnNuevoAction}" update=":vistaPaso">    
                 </p:commandButton>
                 <p:commandButton value="Modificar" actionListener="#{frmTipoPaso.btnModificarAction}" update=":tablaTipoPaso :vistaPaso" rendered="${frmTipoPaso.editar}">                   

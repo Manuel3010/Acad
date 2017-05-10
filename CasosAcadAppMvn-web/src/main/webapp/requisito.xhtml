@@ -55,6 +55,7 @@
                         <p:panelGrid columns="2">
                             <p:outputLabel value="ID Requisito" for="txtIdRequisito" id="lblIdRequisito"></p:outputLabel>
                             <p:inputText id="txtIdRequisito" value="#{frmRequisito.registro.idRequisito}" readonly="true"></p:inputText>
+                           
                             <p:outputLabel value="Tipo Requisito" for="cbTipoRequisito" id="lblTipoRequisito"></p:outputLabel>
                             <h:selectOneListbox id="cbTipoRequisito" value="#{frmRequisito.tipoSeleccionado}" 
                                                 style="width: 200px" required="true" styleClass="center_content" size="1" >
@@ -65,17 +66,22 @@
                                                itemValue="#{tipo.idTipoRequisito}">
                                 </f:selectItems>
                             </h:selectOneListbox>
+                            
                             <p:outputLabel value="Nombre" for="txtNombreR" id="lblNombreR"></p:outputLabel>
                             <p:inputText id="txtNombreR" value="#{frmRequisito.registro.requisito}" required="true"></p:inputText>
+                            
                             <p:outputLabel value="Descripcion" for="txtDesc" id="lblDesc"></p:outputLabel>
-                            <p:inputText id="txtDesc" value="#{frmRequisito.registro.descripcion}" required="true"></p:inputText>
+                            <p:inputTextarea id="txtDesc" value="#{frmRequisito.registro.descripcion}" rows="3" cols="33" required="true"></p:inputTextarea>
+                            
                             <p:outputLabel value="Texto Publico" for="txtTexto" id="lblText"></p:outputLabel>
                             <p:inputTextarea id="txtTexto" value="#{frmRequisito.registro.textoPublico}" rows="6" cols="33" required="true"></p:inputTextarea>
+                            
                             <p:outputLabel value="Obligatorio" for="rbObligatorio" id="lblObl"></p:outputLabel>
                             <p:selectOneRadio id="rbObligatorio" value="#{frmRequisito.registro.obligatorio}" required="true">
                               <f:selectItem itemLabel="SI" itemValue="true" />
                               <f:selectItem itemLabel="NO" itemValue="false" />
                             </p:selectOneRadio>
+                           
                             <p:outputLabel value="Estado" for="rbEstad" id="lblEst"></p:outputLabel>
                             <p:selectOneRadio id="rbEstad" value="#{frmRequisito.registro.activo}" required="true">
                               <f:selectItem itemLabel="Activo" itemValue="true" />

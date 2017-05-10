@@ -49,15 +49,19 @@
                 
                 <p:outputLabel value="ID" for="txtIdTipoRequisito" id="lblIdTipo"/>
                 <p:inputText id="txtIdTipoRequisito"  value="#{frmTipoRequisito.tipo.idTipoRequisito}" readonly="true"></p:inputText>
+               
                 <p:outputLabel value="Nombre" for="txtNombre" id="lblNombre"></p:outputLabel>
                 <p:inputText id="txtNombre"  value="#{frmTipoRequisito.tipo.nombre}" required="true"></p:inputText>
+                
                 <p:outputLabel value="Estado" for="rbEstado" id="lblEstado"></p:outputLabel>
                 <p:selectOneRadio id="rbEstado" value="#{frmTipoRequisito.tipo.activo}" required="true" >
                     <f:selectItem itemLabel="Activo" itemValue="true" />
                     <f:selectItem itemLabel="Inactivo" itemValue="false" />
                 </p:selectOneRadio>
+                
                 <p:outputLabel value="Observacion" for="txtObservacion" id="lblObservacion"></p:outputLabel>
-                <p:inputText id="txtObservacion"  value="#{frmTipoRequisito.tipo.observacion}" required="true"></p:inputText>
+                <p:inputTextarea id="txtObservacion"  value="#{frmTipoRequisito.tipo.observacion}" rows="3" cols="33" required="true"></p:inputTextarea>
+                
                 <p:commandButton value="Nuevo" actionListener="#{frmTipoRequisito.btnNuevoAction}" update=":vistaEditar">
                 </p:commandButton>
                 <p:commandButton value="Modificar" actionListener="#{frmTipoRequisito.btnModificarAction}" update=":tablaTipoRequisito :vistaEditar" rendered="${frmTipoRequisito.editar}" ></p:commandButton>                
