@@ -2,6 +2,7 @@ package tpi.CasosAcad.Backing;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -34,6 +35,7 @@ public class FrmSolicitud implements Serializable {
     
     private Solicitud registro;
     private boolean editar=false;
+    private String fecha;
     
     
     @PostConstruct
@@ -183,5 +185,20 @@ public class FrmSolicitud implements Serializable {
     public void setEditar(boolean editar) {
         this.editar = editar;
     }
+
+    /**
+     * @return the fecha
+     */
+    public String getFecha() {
+        return fecha;
+    }
+
+    /**
+     * @param fecha the fecha to set
+     */
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+    
     
 }

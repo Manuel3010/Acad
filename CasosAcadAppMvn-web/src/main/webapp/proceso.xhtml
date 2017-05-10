@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Proceso</title>
+        <title>Formulario mantenimiento proceso</title>
     </h:head>
     <h:body>
          <p:panel header="Procesos para Casos Academicos" closable="false" toggleable="false" >
@@ -42,18 +42,17 @@
             <p:panel id="panelMenu">
                 
                     <h:form id="vistaProceso">
-                <p:panelGrid columns="2" style="text-align:  center" >
+                <p:panelGrid columns="2" style="text-align: left" >
                 
                 <p:outputLabel value="ID" for="txtIdProceso" id="lblIdProceso"/>
                 <p:inputText id="txtIdProceso"  value="#{frmProceso.registro.idProceso}" readonly="true"></p:inputText>
                 <p:outputLabel value="Nombre" for="txtNombre" id="lblNombre"></p:outputLabel>
                 <p:inputText id="txtNombre"  value="#{frmProceso.registro.nombre}" required="true"></p:inputText>
-                <p:outputLabel value="Estado" for="rbEstado" id="lblEstado"></p:outputLabel>
-                <p:selectOneRadio id="rbEstado" value="#{frmProceso.registro.activo}" required="true" >
+                <p:outputLabel value="Activo" for="rbActivo" id="lblActivo"></p:outputLabel>
+                <p:selectOneRadio id="rbActivo" value="#{frmProceso.registro.activo}" required="true" >
                     <f:selectItem itemLabel="Activo" itemValue="true" />
                     <f:selectItem itemLabel="Inactivo" itemValue="false" />
                 </p:selectOneRadio>
-                
                 <p:outputLabel value="Descripcion" for="txtDescripcion" id="lblDescripcion"></p:outputLabel>
                 <p:inputText id="txtDescripcion"  value="#{frmProceso.registro.descripcion}" required="true"></p:inputText>
                 <p:commandButton value="Nuevo" actionListener="#{frmProceso.btnNuevoAction}" update=":vistaProceso">    

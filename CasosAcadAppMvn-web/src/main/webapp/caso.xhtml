@@ -26,15 +26,16 @@
                         <p:column headerText="Proceso">
                             <p:outputLabel value="#{r.idProceso.nombre}"></p:outputLabel>
                         </p:column>
+                        <p:column headerText="Solicitante">
+                            <p:outputLabel value="#{r.idSolicitud.solicitante}"></p:outputLabel>
+                        </p:column> 
                         <p:column headerText="Nombre">
                             <p:outputLabel value="#{r.nombre}"></p:outputLabel>
                         </p:column>
                         <p:column headerText="Encargado">
                             <p:outputLabel value="#{r.encargado}"></p:outputLabel>
                         </p:column>
-                        <p:column headerText="Solicitante">
-                            <p:outputLabel value="#{r.idSolicitud.solicitante}"></p:outputLabel>
-                        </p:column>    
+                           
                         <p:ajax update=":tabViewCaso" event="rowSelect" listener="${frmCaso.cambioTabla}"></p:ajax> 
                     </p:dataTable>    
                     <p:growl id="growl" life="2000" />
@@ -107,7 +108,7 @@
                         <p:column headerText="Nombre">
                             <p:outputLabel value="#{pro.nombre}"></p:outputLabel>
                         </p:column>
-                         <p:column headerText="Estado">
+                        <p:column headerText="Responsable">
                             <p:outputLabel value="#{pro.activo?'Activo':'Inactivo'}"></p:outputLabel>
                         </p:column>
                         <p:column headerText="Descripcion">

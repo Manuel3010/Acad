@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tpi.CasosAcad.Recursos;
 
 import java.util.ArrayList;
@@ -25,56 +20,34 @@ import tpi.CasosAcad.Sessions.ProcesoFacadeLocal;
 @RequestScoped
 @Path("Proceso")
 
-public class procesoRecurso {
-    
-    
+public class procesoRecurso {   
     @Inject
     private ProcesoFacadeLocal ProcesoFacade;
-    
-    
+ 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public List<Proceso> findAll(){
-    
     List salida= new ArrayList();
     try{
        if(ProcesoFacade!=null){
-       
        salida=ProcesoFacade.findAll();
-       
        }
-                    
     }catch(Exception e){
-    
-    
     }
     return salida;
-    
     }    
-    
-    
     
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})
     public Proceso findById(@PathParam("id")final Integer id){
-    
         Proceso salida= new Proceso();
         try{
         if(ProcesoFacade!=null){
         salida= ProcesoFacade.find(id);
-        
         }
-        
         }catch(Exception e){
-        
         }
-    
     return salida;    
-    }    
-    
-    
-    
-    
-    
+    }        
 }
