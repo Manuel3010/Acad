@@ -1,26 +1,147 @@
-<?xml version='1.0' encoding='UTF-8' ?> 
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <h:outputStylesheet name="./css/default.css"/>
-        <h:outputStylesheet name="./css/cssLayout.css"/>
-        <title>Facelets Template</title>
+        <title>Interfaz mantenimiento Proceso-Detalle</title>
     </h:head>
-
     <h:body>
+      
+        <p:panel header="Procesos-Detalles" closable="false" toggleable="false" >
+            <h:panelGrid>
+                <h:form id="tablaProcesoDetalle">
+                    <p:dataTable value="#{frmProcesoDetalle.modeloProcesoDetalle}"
+                                 var="r"
+                                 rows="10"
+                                 paginator="true"
+                                 lazy="true"
+                                 selectionMode="single"
+                                 selection="#{frmProcesoDetalle.registro}"
+                                 style="color: #ff5252"
+                                 >
+                        <p:column headerText="ID">
+                            <p:outputLabel value="#{r.idProcesoDetalle}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Prerequisito">
+                            <p:outputLabel value="#{r.idProcesoDetalle}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="encargado">
+                            <p:outputLabel value="#{r.idProceso.nombre}"></p:outputLabel>
+                        </p:column> 
+                        <p:column headerText="Nombre">
+                            <p:outputLabel value="#{r.idPaso.paso}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Encargado">
+                            <p:outputLabel value="#{r.responsable}"></p:outputLabel>
+                        </p:column>
+                           
+                        <p:ajax update=":tabViewProcesoDetalle" event="rowSelect" listener="${frmProcesoDetalle.cambioTabla}"></p:ajax> 
+                    </p:dataTable>    
+                    <p:growl id="growl" life="2000" />
+                </h:form>
+            </h:panelGrid>
+        </p:panel>
+        
+        <div>
+            <p:tabView id="tabViewProcesoDetalle">
+                <p:tab title="Formulario Caso" id="tabProcesoDetalle">
+                    <h:form id="edAddProcesoDetalle">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="ID ProcesoDetalle" for="txtIdProcesoDetalle" id="lblIdProcesoDetalle"></p:outputLabel>
+                            <p:inputText id="txtIdProcesoDetalle" value="#{frmProcesoDetalle.registro.idProcesoDetalle}" readonly="true"></p:inputText>
+                           <p:outputLabel value="ProcesoDetalle prerequsitio" for="txtProcesoDetallePre" id="lblProcesoDetallePre"></p:outputLabel>
+                           <p:inputText id="txtProcesoDetallePre" value="#{frmProcesoDetalle.registro.idProcesoDetalle}" required="false"></p:inputText>                     
+                            <p:outputLabel value="Proceso" for="cbProceso" id="lblProceso"></p:outputLabel>
+                            <h:selectOneListbox id="cbProceso" value="#{frmProcesoDetalle.procesoSeleccionado}" 
+                                                style="width: 200px" required="true" styleClass="center_content" size="1" >
+                                <f:selectItem itemLabel="Seleccione proceso" itemValue="" />
+                                <f:selectItems value="#{frmProcesoDetalle.procesos}" 
+                                               var="proceso" 
+                                               itemLabel="#{proceso.nombre}" 
+                                               itemValue="#{proceso.idProceso}">
+                                </f:selectItems>
+                            </h:selectOneListbox>
+                            
+                            <p:outputLabel value="Paso" for="cbPaso" id="lblPaso"></p:outputLabel>
+                            <h:selectOneListbox id="cbPaso" value="#{frmProcesoDetalle.pasoSeleccionado}" 
+                                                style="width: 200px" required="true" styleClass="center_content" size="1" >
+                                <f:selectItem itemLabel="Seleccione paso" itemValue="" />
+                                <f:selectItems value="#{frmProcesoDetalle.pasos}" 
+                                               var="paso" 
+                                               itemLabel="#{paso.paso}" 
+                                               itemValue="#{paso.idPaso}">
+                                </f:selectItems>
+                            </h:selectOneListbox>
+                             <p:outputLabel value="Responsable" for="txtResponsable" id="lblRepsonsable"></p:outputLabel>
+                             <p:inputText id="txtResponsable" value="#{frmProcesoDetalle.registro.responsable}" required="true"></p:inputText>
 
-        <div id="top" class="top">
-            <ui:insert name="top">Top</ui:insert>
+                             <p:commandButton value="Nuevo" actionListener="#{frmProcesoDetalle.btnNuevoAction}" update=":tabViewProcesoDetalle:edAddProcesoDetalle">    
+                            </p:commandButton>
+                             <p:commandButton value="Modificar" actionListener="#{frmProcesoDetalle.btnModificarAction}" update="tablaProcesoDetalle :tabViewProcesoDetalle:edAddProcesoDetalle" rendered="${frmProcesoDetalle.editar}"></p:commandButton>                
+                             <p:commandButton value="Guardar" actionListener="#{frmProcesoDetalle.btnGuardarAction}" update="tablaProcesoDetalle :tabViewProcesoDetalle:edAddProcesoDetalle" rendered="${!frmProcesoDetalle.editar}"></p:commandButton> 
+                             <p:commandButton value="Eliminar" actionListener="#{frmProcesoDetalle.btnEliminarAction}" update="tablaProcesoDetalle :tabViewProcesoDetalle:edAddProcesoDetalle">
+                                <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar este elemento?" icon="ui-icon-alert" />
+                            </p:commandButton>          
+                        </p:panelGrid> 
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+          </p:confirmDialog>
+
+                    </h:form>
+                </p:tab>
+                <p:tab title="Tabla Proceso" id="tabProceso">
+                      <h:panelGrid>
+                <h:form id="tablaProceso">
+                    <p:dataTable value="#{frmProceso.modelo}"
+                                 var="pro"
+                                 rows="5"
+                                 paginator="true"
+                                 lazy="true"
+                                 >
+                        <p:column headerText="ID">
+                            <p:outputLabel value="#{pro.idProceso}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Nombre">
+                            <p:outputLabel value="#{pro.nombre}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Responsable">
+                            <p:outputLabel value="#{pro.activo?'Activo':'Inactivo'}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Descripcion">
+                            <p:outputLabel value="#{pro.descripcion}"></p:outputLabel>
+                        </p:column>                        
+                    </p:dataTable>                        
+                </h:form>
+            </h:panelGrid>
+                </p:tab>
+        <p:tab title="Tabla Paso" id="tabPaso">
+                      <h:panelGrid>
+                <h:form id="tablaPaso">
+                    <p:dataTable value="#{frmPaso.modeloPaso}"
+                                 var="paso"
+                                 rows="5"
+                                 paginator="true"
+                                 lazy="true"
+                                 >
+                        <p:column headerText="ID">
+                            <p:outputLabel value="#{paso.idPaso}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Fecha">
+                            <p:outputLabel value="#{paso.idTipoPaso.paso}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Solicitante">
+                            <p:outputLabel value="#{paso.paso}"></p:outputLabel>
+                        </p:column>                        
+                    </p:dataTable>                        
+                </h:form>
+            </h:panelGrid>
+                </p:tab>
+            </p:tabView>    
         </div>
-
-        <div id="content" class="center_content">
-            <ui:insert name="content">Content</ui:insert>
-        </div>
-
+        
     </h:body>
-
 </html>
+

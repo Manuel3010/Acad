@@ -98,7 +98,7 @@
                    <h:panelGrid>
                 <h:form id="listaRequisitos">
                     
-                    <p:dataList value="#{frmPasoRequisito.modeloPasoRequisito}" var="paso" type="unordered" itemType="none" paginator="true" rows="10" styleClass="paginated">
+                    <p:dataList value="#{frmPaso.requisitos}" var="paso" type="unordered" itemType="none" paginator="true" rows="10" styleClass="paginated">
         <f:facet name="header">
             lista de pasos
         </f:facet>
@@ -106,7 +106,7 @@
         <!--<f:setPropertyActionListener value="{frmPaso.modeloPaso}" target="{frmPaso.modeloPaso}" />-->
         <!--<h:outputText value="{R.idPaso}" /> -->
         <!-- </p:commandLink> -->
-        <h:outputText value="#{paso.idPaso}, #{paso.idPaso.paso}" style="display:inline-block"/>
+        <h:outputText value="#{paso.idPaso.idPaso}, #{paso.idRequisito.requisito}" style="display:inline-block"/>
     </p:dataList>
                     
                     

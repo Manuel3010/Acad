@@ -42,7 +42,7 @@ public class FrmPaso implements Serializable{
     private List<PasoRequisito> Requisitos;
      
     private Paso registroP;// =new Paso();
-    private PasoRequisito pasoR;// =new Paso();
+    private PasoRequisito Reg;// =new Paso();
     
     private List<TipoPaso> tipos;
     private boolean editar= false;
@@ -59,7 +59,7 @@ public class FrmPaso implements Serializable{
     public void init(){
         
     this.tipos= tpfl.findAll();
-    this.Requisitos=prfl.findAll();
+    this.setRequisitos(getPrfl().findAll());
     
     setModeloPaso(new LazyDataModel<Paso>(){
 
@@ -127,10 +127,10 @@ public class FrmPaso implements Serializable{
     }
     
     //////////////////////////////////////////////////////
-        public Integer getPasoSeleccionado(){
-     if(pasoR!= null){
-            if(pasoR.getIdPaso()!= null){
-                return this.pasoR.getIdPaso().getIdPaso();
+     public Integer getPasoSeleccionado(){
+     if(getReg()!= null){
+            if(getReg().getIdPaso()!= null){
+                return this.getReg().getIdPaso().getIdPaso();
             } else {
                 return null;
             }         
@@ -139,20 +139,23 @@ public class FrmPaso implements Serializable{
         }
     }
     
-//    public void setPasoSeleccionado(Integer idPaso){
-//        if(idPaso >= 0 && !this.Requisitos.isEmpty()){
-//            for(PasoRequisito tpe : this.getRequisitos()) {
-//                if(Objects.equals(tpe.getIdPaso(), idPaso)) {
-//                    if(this.pasoR.getIdPaso() != null) {
-//                        this.pasoR.getIdPaso().setIdPaso(idPaso);
-//                    } else {
-//                        this.pasoR.setIdPaso(tpe);
-//                    }
-//                }
-//            }
-//        }
-//    
-//    }
+    public void setPasoSeleccionado(Integer idPaso){
+        if(idPaso >= 0 && !this.Requisitos.isEmpty()){
+            for(PasoRequisito pre : this.getRequisitos()) {
+                if(Objects.equals(pre.getIdPasoRequisito(), idPaso)) {
+                    if(this.Reg.getIdPaso() != null) {
+                        this.Reg.getIdPaso();
+                    } else {
+                        
+                        this.Reg.setIdPaso(pre.getIdPaso());
+                    }
+                }
+            }
+        }
+    
+    }
+    
+   
     
     
     
@@ -297,17 +300,34 @@ public class FrmPaso implements Serializable{
     }
 
     /**
-     * @return the pasoR
+     * @return the Reg
      */
-    public PasoRequisito getPasoR() {
-        return pasoR;
+    public PasoRequisito getReg() {
+        return Reg;
     }
 
     /**
-     * @param pasoR the pasoR to set
+     * @param Reg the Reg to set
      */
-    public void setPasoR(PasoRequisito pasoR) {
-        this.pasoR = pasoR;
+    public void setReg(PasoRequisito Reg) {
+        this.Reg = Reg;
     }
+
+    /**
+     * @return the prfl
+     */
+    public PasoRequisitoFacadeLocal getPrfl() {
+        return prfl;
+    }
+
+    /**
+     * @param prfl the prfl to set
+     */
+    public void setPrfl(PasoRequisitoFacadeLocal prfl) {
+        this.prfl = prfl;
+    }
+
+    
+   
     
 }

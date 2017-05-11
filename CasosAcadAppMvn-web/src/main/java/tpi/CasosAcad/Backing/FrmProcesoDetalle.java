@@ -23,12 +23,12 @@ import javax.faces.view.ViewScoped;
 import org.primefaces.context.RequestContext;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
+import tpi.CasosAcad.Entidades.Paso;
 import tpi.CasosAcad.Entidades.Proceso;
 import tpi.CasosAcad.Entidades.ProcesoDetalle;
-import tpi.CasosAcad.Entidades.Paso;
 import tpi.CasosAcad.Sessions.PasoFacadeLocal;
-import tpi.CasosAcad.Sessions.ProcesoDetalleFacadeLocal;
 import tpi.CasosAcad.Sessions.ProcesoFacadeLocal;
+import tpi.CasosAcad.Sessions.ProcesoDetalleFacadeLocal;
 
 /**
  *
@@ -43,25 +43,29 @@ public class FrmProcesoDetalle implements Serializable {
     private LazyDataModel<ProcesoDetalle> modeloProcesoDetalle;
     
     private Paso paso; //= new Requisito();
-    private ProcesoDetalle registro; //proceso detalle tipo
     private Proceso proceso;
-    private List<ProcesoDetalle> ProcesoDetalles; // proceso detalles tipos
-    private List<Proceso> Procesos;
+    private ProcesoDetalle registro; //tipo
+    
+    private List<Paso> Pasos;
+    private List<Proceso> Procesos; //tipos
+    private List<ProcesoDetalle> ProcesoDetalles; //tipos
+
     private boolean editar=false;    
     
     @EJB
     private PasoFacadeLocal pfl;
     @EJB
-    private ProcesoDetalleFacadeLocal pdfl; //sfl
+    private ProcesoFacadeLocal profl;
     @EJB
-    private ProcesoFacadeLocal prfl;
+    private ProcesoDetalleFacadeLocal pdfl;
     
     
     @PostConstruct
     public void init(){
         
+             this.Pasos= pfl.findAll();
+             this.Procesos= profl.findAll();
              this.ProcesoDetalles= pdfl.findAll();
-             this.Procesos= prfl.findAll();
         
              setModeloPaso(new LazyDataModel<Paso>(){
 
@@ -100,7 +104,7 @@ public class FrmProcesoDetalle implements Serializable {
         });
 
              
-             setModeloSolicitud(new LazyDataModel<ProcesoDetalle>(){
+             setModeloProcesoDetalle(new LazyDataModel<ProcesoDetalle>(){
 
             @Override
             public List<ProcesoDetalle> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
@@ -141,12 +145,12 @@ public class FrmProcesoDetalle implements Serializable {
             @Override
             public List<Proceso> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
                 List salida = new ArrayList();
-                if(prfl != null){
-                    this.setRowCount(prfl.count());
+                if(profl != null){
+                    this.setRowCount(profl.count());
                     int[] rango = new int[2];
                     rango[0] = first;
                     rango[1] = pageSize;
-                    salida = prfl.findRange(rango);
+                    salida = profl.findRange(rango);
                 }
                 return salida;
             }
@@ -190,41 +194,41 @@ public class FrmProcesoDetalle implements Serializable {
     }
     
     public void limpiar(){
-        RequestContext.getCurrentInstance().reset(":tabViewPaso:edAddPaso");
+        RequestContext.getCurrentInstance().reset(":tabViewProcesoDetalle:edAddProcesoDetalle");
         this.paso=new Paso();
     }
     
-//     public Integer getProcesoDetalleSeleccionado(){
-//     if(registro!= null){
-//            if(registro.getIdProcesoDetalle()!= null){
-//                return this.registro.getIdProcesoDetalle().getIdProcesoDetalle();
-//            } else {
-//                return null;
-//            }         
-//        } else {
-//            return null;
-//        }
-//    }
-//    
-//    public void setProcesoDetalleSeleccionado(Integer idProcesoDetalle){
-//        if(idProcesoDetalle >= 0 && !this.ProcesoDetalles.isEmpty()){
-//            for(ProcesoDetalle tre : this.getProcesoDetalles()) {
-//                if(Objects.equals(tre.getIdProcesoDetalle(), idProcesoDetalle)) {
-//                    if(this.registro.getIdProcesoDetalle()!= null) {
-//                        this.registro.getIdProcesoDetalle().setIdProcesoDetalle(idProcesoDetalle);
-//                    } else {
-//                        this.registro.setIdProcesoDetalle(tre);
-//                    }
-//                }
-//            }
-//        }
-//    
-//    }
+     public Integer getPasoSeleccionado(){
+     if(getRegistro()!= null){
+            if(getRegistro().getIdPaso()!= null){
+                return this.getRegistro().getIdPaso().getIdPaso();
+            } else {
+                return null;
+            }         
+        } else {
+            return null;
+        }
+    }
+    
+    public void setPasoSeleccionado(Integer idPaso){
+        if(idPaso >= 0 && !this.Pasos.isEmpty()){
+            for(Paso tre : this.getPasos()) {
+                if(Objects.equals(tre.getIdPaso(), idPaso)) {
+                    if(this.getRegistro().getIdPaso()!= null) {
+                        this.getRegistro().getIdPaso().setIdPaso(idPaso);
+                    } else {
+                        this.getRegistro().setIdPaso(tre);
+                    }
+                }
+            }
+        }
+    
+    }
       
      public Integer getProcesoSeleccionado(){
-     if(registro!= null){
-            if(registro.getIdProceso()!= null){
-                return this.registro.getIdProceso().getIdProceso();
+     if(getRegistro()!= null){
+            if(getRegistro().getIdProceso()!= null){
+                return this.getRegistro().getIdProceso().getIdProceso();
             } else {
                 return null;
             }         
@@ -237,10 +241,10 @@ public class FrmProcesoDetalle implements Serializable {
         if(idProceso>= 0 && !this.Procesos.isEmpty()){
             for(Proceso tre : this.getProcesos()) {
                 if(Objects.equals(tre.getIdProceso(), idProceso)) {
-                    if(this.registro.getIdProceso() != null) {
-                        this.registro.getIdProceso().setIdProceso(idProceso);
+                    if(this.getRegistro().getIdProceso() != null) {
+                        this.getRegistro().getIdProceso().setIdProceso(idProceso);
                     } else {
-                        this.registro.setIdProceso(tre);
+                        this.getRegistro().setIdProceso(tre);
                     }
                 }
             }
@@ -251,8 +255,8 @@ public class FrmProcesoDetalle implements Serializable {
     
           public void btnGuardarAction(ActionEvent ae){
         try {    
-            if(this.registro != null && this.pfl != null){
-                boolean resultado = this.pfl.create(paso);
+            if(this.getRegistro() != null && this.pdfl != null){
+                boolean resultado = this.pdfl.create(getRegistro());
                 FacesMessage msj = new FacesMessage(FacesMessage.SEVERITY_INFO, resultado?"Creado con exito":"Error", null);
                 //this.agregar = !resultado;
                 FacesContext.getCurrentInstance().addMessage(null, msj);
@@ -267,7 +271,7 @@ public class FrmProcesoDetalle implements Serializable {
      
       public void btnModificarAction(ActionEvent ae){
         try{
-            boolean resultado = this.pfl.editar(paso); 
+            boolean resultado = this.pdfl.editar(getRegistro()); 
             FacesMessage msj = new FacesMessage(FacesMessage.SEVERITY_INFO, resultado?"Modificado con exito":"Error", null);
             //this.editar = resultado;
             FacesContext.getCurrentInstance().addMessage(null, msj);
@@ -279,8 +283,8 @@ public class FrmProcesoDetalle implements Serializable {
 
             public void btnEliminarAction(ActionEvent ae) {
         try {
-            if(this.paso != null && this.pfl != null){
-                boolean resultado = this.pfl.remove(paso);
+            if(this.getRegistro() != null && this.pdfl != null){
+                boolean resultado = this.pdfl.remove(getRegistro());
                 editar=!resultado;
                 FacesMessage msj = new FacesMessage(FacesMessage.SEVERITY_INFO, resultado?"Eliminado con exito":"Error", null);
                 FacesContext.getCurrentInstance().addMessage(null, msj);
@@ -320,7 +324,7 @@ public class FrmProcesoDetalle implements Serializable {
     public void setModeloProceso(LazyDataModel<Proceso> modeloProceso) {
         this.modeloProceso = modeloProceso;
     }
-    public void setModeloSolicitud(LazyDataModel<ProcesoDetalle> modeloProcesoDetalle) {
+    public void setModeloProcesoDetalle(LazyDataModel<ProcesoDetalle> modeloProcesoDetalle) {
         this.modeloProcesoDetalle = modeloProcesoDetalle;
     }
 
@@ -334,19 +338,26 @@ public class FrmProcesoDetalle implements Serializable {
     }
 
     public ProcesoDetalle getProcesoDetalle() {
-        return registro;
+        return getRegistro();
     }
 
     public void setProcesoDetalle(ProcesoDetalle procesoDetalle) {
-        this.registro = procesoDetalle;
+        this.setRegistro(procesoDetalle);
     }
 
     public List<ProcesoDetalle> getProcesoDetalles() {
         return ProcesoDetalles;
     }
 
-    public void setProcesoDetalles(List<ProcesoDetalle> solicituds) {
-        this.ProcesoDetalles = solicituds;
+    public void setProcesoDetalles(List<ProcesoDetalle> ProcesoDetalles) {
+        this.ProcesoDetalles = ProcesoDetalles;
+    }
+     public List<Paso> getPasos() {
+        return Pasos;
+    }
+
+    public void setPasos(List<Paso> Pasos) {
+        this.Pasos = Pasos;
     }
     public Proceso getProceso() {
         return proceso;
@@ -371,6 +382,21 @@ public class FrmProcesoDetalle implements Serializable {
     public void setEditar(boolean editar) {
         this.editar = editar;
     }
+
+    /**
+     * @return the registro
+     */
+    public ProcesoDetalle getRegistro() {
+        return registro;
+    }
+
+    /**
+     * @param registro the registro to set
+     */
+    public void setRegistro(ProcesoDetalle registro) {
+        this.registro = registro;
+    }
     
 }
+
 
