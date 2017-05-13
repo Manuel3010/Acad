@@ -105,6 +105,7 @@ public class FrmSolicitud implements Serializable {
     
         RequestContext.getCurrentInstance().reset(":vistaSolicitud");
         this.registro= new Solicitud();
+        this.registro.setPendiente(true);
         
     
     }
@@ -175,6 +176,7 @@ public class FrmSolicitud implements Serializable {
     public FrmSolicitud() {
     
     this.registro= new Solicitud();
+    this.registro.setPendiente(true);
     
     }
 

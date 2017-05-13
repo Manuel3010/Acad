@@ -29,6 +29,9 @@
                         <p:column headerText="Responsable">
                             <p:outputLabel value="#{r.solicitante}"></p:outputLabel>
                         </p:column>
+                        <p:column headerText="Pendiente">
+                            <p:outputLabel value="#{r.pendiente?'Si':'No'}"></p:outputLabel>
+                        </p:column>
                         <p:ajax update=":vistaSolicitud" event="rowSelect" listener="${frmSolicitud.cambioTabla}" ></p:ajax>
                     </p:dataTable>    
                     <p:growl id="growl" life="2000" />
