@@ -135,6 +135,9 @@
                         </p:column>
                         <p:column headerText="Solicitante">
                             <p:outputLabel value="#{soli.solicitante}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Pendiente">
+                            <p:outputLabel value="#{soli.pendiente?'Si':'No'}"></p:outputLabel>
                         </p:column>                        
                     </p:dataTable>                        
                 </h:form>

@@ -12,6 +12,7 @@ import javax.ws.rs.core.Application;
  *
  * @author manuel
  */
+
 @ApplicationPath("webresources")
 public class AppConfig extends Application{
     

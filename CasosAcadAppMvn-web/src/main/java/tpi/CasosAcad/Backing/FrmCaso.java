@@ -192,6 +192,7 @@ public class FrmCaso implements Serializable {
     public void limpiar(){
         RequestContext.getCurrentInstance().reset(":tabViewCaso:edAddCaso");
         this.registro=new Caso();
+        //this.solicitud.setPendiente(false);
     }
     
      public Integer getSolicitudSeleccionado(){
@@ -252,7 +253,10 @@ public class FrmCaso implements Serializable {
           public void btnGuardarAction(ActionEvent ae){
         try {    
             if(this.registro != null && this.cfl != null){
+                //this.solicitud.setPendiente(false);
+                //this.sfl.editar(solicitud);
                 boolean resultado = this.cfl.create(registro);
+                
                 FacesMessage msj = new FacesMessage(FacesMessage.SEVERITY_INFO, resultado?"Creado con exito":"Error", null);
                 //this.agregar = !resultado;
                 FacesContext.getCurrentInstance().addMessage(null, msj);
@@ -301,6 +305,7 @@ public class FrmCaso implements Serializable {
         this.registro=new Caso();
         this.proceso=new Proceso();
         this.solicitud=new Solicitud();
+        //this.solicitud.setPendiente(false);
     }
 
     public LazyDataModel<Caso> getModeloCaso() {
@@ -339,6 +344,7 @@ public class FrmCaso implements Serializable {
 
     public void setSolicitud(Solicitud solicitud) {
         this.solicitud = solicitud;
+        this.solicitud.setPendiente(false);
     }
 
     public List<Solicitud> getSolicituds() {

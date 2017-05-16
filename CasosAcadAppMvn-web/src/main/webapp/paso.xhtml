@@ -69,31 +69,22 @@
                     </p:confirmDialog>
                     </h:form>                
            </p:tab> 
-            <p:tab title="Tabla Tipos de Paso" id="tabTipoPaso">
-                   <h:panelGrid>
-                <h:form id="tablaTipoPaso">
-                    <p:dataTable value="#{frmTipoPaso.modelo}"
-                                 var="r"
-                                 rows="5"
-                                 paginator="true"
-                                 lazy="true"                               
-                                 >
-                        <p:column headerText="ID">
-                            <p:outputLabel value="#{r.idTipoPaso}"></p:outputLabel>
-                        </p:column>
-                        <p:column headerText="Nombre">
-                            <p:outputLabel value="#{r.paso}"></p:outputLabel>
-                        </p:column>
-                        <p:column headerText="Estado">
-                            <p:outputLabel value="#{r.activo?'Activo':'Inactivo'}"></p:outputLabel>
-                        </p:column>
-                        <p:column headerText="Observacion">
-                            <p:outputLabel value="#{r.observacion}"></p:outputLabel>
-                        </p:column>                        
-                    </p:dataTable>                    
+            
+            <p:tab title="Requisitos del Paso" id="tabRequisitoPaso">
+                
+                <h:panelGrid>
+                <h:form id="listaRequisitos">
+                    
+                    <p:dataList value="#{frmPaso.obtenerRequisitos}" var="paso" type="unordered" itemType="none" paginator="true" rows="10" styleClass="paginated">
+        <f:facet name="header">
+            Requisitos del Paso
+        </f:facet>
+        
+                        <h:outputText value="#{paso.idPaso.idPaso}, #{paso.idRequisito.requisito}" style="display:inline-block"/>
+    </p:dataList>                                                                         
                 </h:form>
-            </h:panelGrid>                                
-            </p:tab>
+            </h:panelGrid>                                                                            
+            </p:tab>                                  
        </p:tabView>                        
         </div>
   

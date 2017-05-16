@@ -23,11 +23,13 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import tpi.CasosAcad.Entidades.Paso;
+import tpi.CasosAcad.Entidades.PasoRequisito;
 //import tpi.CasosAcad.Entidades.Requisito;
 import tpi.CasosAcad.Entidades.TipoPaso;
 //import tpi.CasosAcad.Entidades.TipoRequisito;
 //import tpi.CasosAcad.Entidades.TipoRequisito;
 import tpi.CasosAcad.Sessions.PasoFacadeLocal;
+import tpi.CasosAcad.Sessions.PasoRequisitoFacadeLocal;
 import tpi.CasosAcad.Sessions.TipoPasoFacadeLocal;
 
 /**
@@ -41,6 +43,7 @@ public class FrmPaso implements Serializable{
     private LazyDataModel<Paso> modeloPaso;
      
     private Paso registroP;// =new Paso();
+    private PasoRequisito Reg;
     private List<TipoPaso> tipos;
     private boolean editar= false;
     
@@ -48,6 +51,8 @@ public class FrmPaso implements Serializable{
     private PasoFacadeLocal pfl;
     @EJB
     private TipoPasoFacadeLocal tpfl;
+    @EJB
+    private PasoRequisitoFacadeLocal prfl;
     
     @PostConstruct
     public void init(){
@@ -117,6 +122,36 @@ public class FrmPaso implements Serializable{
         }
     
     }
+    
+     
+     
+    
+    
+    
+    
+    public List<PasoRequisito> getObtenerRequisitos(){
+      List salida=new ArrayList();
+      try{
+      
+          
+          salida= prfl.findByIdPaso(this.getRegistroP().getIdPaso());
+          
+          
+          
+      
+      }catch(Exception e){
+         Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
+      }
+      
+      
+    
+      return salida;
+    }
+    
+    
+    
+    
+ 
      public void cambioTabla(){
         this.editar = true;
     }
@@ -223,6 +258,22 @@ public class FrmPaso implements Serializable{
 
     public void setEditar(boolean editar) {
         this.editar = editar;
+    }
+
+    public Paso getRegistroP() {
+        return registroP;
+    }
+
+    public void setRegistroP(Paso registroP) {
+        this.registroP = registroP;
+    }
+
+    public PasoRequisito getReg() {
+        return Reg;
+    }
+
+    public void setReg(PasoRequisito Reg) {
+        this.Reg = Reg;
     }
     
 }
