@@ -66,6 +66,7 @@ public class tipoRequisitoRecurso {
 
      @GET
      @Path("{id}")
+     @Produces({MediaType.APPLICATION_JSON})
      public TipoRequisito findById(@PathParam("id") Integer id){
        TipoRequisito salida= new TipoRequisito();
        
