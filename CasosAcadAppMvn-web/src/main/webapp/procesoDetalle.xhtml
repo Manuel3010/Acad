@@ -27,10 +27,10 @@
                         <p:column headerText="Prerequisito">
                             <p:outputLabel value="#{r.idProcesoDetalle}"></p:outputLabel>
                         </p:column>
-                        <p:column headerText="encargado">
+                        <p:column headerText="Proceso">
                             <p:outputLabel value="#{r.idProceso.nombre}"></p:outputLabel>
                         </p:column> 
-                        <p:column headerText="Nombre">
+                        <p:column headerText="Paso">
                             <p:outputLabel value="#{r.idPaso.paso}"></p:outputLabel>
                         </p:column>
                         <p:column headerText="Encargado">
@@ -107,8 +107,8 @@
                         <p:column headerText="Nombre">
                             <p:outputLabel value="#{pro.nombre}"></p:outputLabel>
                         </p:column>
-                        <p:column headerText="Responsable">
-                            <p:outputLabel value="#{pro.activo?'Activo':'Inactivo'}"></p:outputLabel>
+                        <p:column headerText="Estado">
+                            <p:outputLabel value="#{pro.activo?'ACTIVO':'INACTIVO'}"></p:outputLabel>
                         </p:column>
                         <p:column headerText="Descripcion">
                             <p:outputLabel value="#{pro.descripcion}"></p:outputLabel>
@@ -126,13 +126,13 @@
                                  paginator="true"
                                  lazy="true"
                                  >
-                        <p:column headerText="ID">
+                        <p:column headerText="ID PASO">
                             <p:outputLabel value="#{paso.idPaso}"></p:outputLabel>
                         </p:column>
-                        <p:column headerText="Fecha">
+                        <p:column headerText="Tipo Paso">
                             <p:outputLabel value="#{paso.idTipoPaso.paso}"></p:outputLabel>
                         </p:column>
-                        <p:column headerText="Solicitante">
+                        <p:column headerText="Paso">
                             <p:outputLabel value="#{paso.paso}"></p:outputLabel>
                         </p:column>                        
                     </p:dataTable>                        
