@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Casos</title>
+        <title>Interfaz mantenimiento Casos</title>
     </h:head>
     <h:body>
         <p:panel header="Casos Academicos" closable="false" toggleable="false" >
@@ -26,15 +26,16 @@
                         <p:column headerText="Proceso">
                             <p:outputLabel value="#{r.idProceso.nombre}"></p:outputLabel>
                         </p:column>
+                        <p:column headerText="Solicitante">
+                            <p:outputLabel value="#{r.idSolicitud.solicitante}"></p:outputLabel>
+                        </p:column> 
                         <p:column headerText="Nombre">
                             <p:outputLabel value="#{r.nombre}"></p:outputLabel>
                         </p:column>
                         <p:column headerText="Encargado">
                             <p:outputLabel value="#{r.encargado}"></p:outputLabel>
                         </p:column>
-                        <p:column headerText="Solicitante">
-                            <p:outputLabel value="#{r.idSolicitud.solicitante}"></p:outputLabel>
-                        </p:column>    
+                           
                         <p:ajax update=":tabViewCaso" event="rowSelect" listener="${frmCaso.cambioTabla}"></p:ajax> 
                     </p:dataTable>    
                     <p:growl id="growl" life="2000" />
@@ -108,7 +109,10 @@
                             <p:outputLabel value="#{pro.nombre}"></p:outputLabel>
                         </p:column>
                         <p:column headerText="Responsable">
-                            <p:outputLabel value="#{pro.responsable}"></p:outputLabel>
+                            <p:outputLabel value="#{pro.activo?'Activo':'Inactivo'}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Descripcion">
+                            <p:outputLabel value="#{pro.descripcion}"></p:outputLabel>
                         </p:column>                        
                     </p:dataTable>                        
                 </h:form>

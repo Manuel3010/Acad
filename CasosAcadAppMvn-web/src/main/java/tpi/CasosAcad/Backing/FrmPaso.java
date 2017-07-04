@@ -23,11 +23,10 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import tpi.CasosAcad.Entidades.Paso;
-//import tpi.CasosAcad.Entidades.Requisito;
 import tpi.CasosAcad.Entidades.TipoPaso;
-//import tpi.CasosAcad.Entidades.TipoRequisito;
-//import tpi.CasosAcad.Entidades.TipoRequisito;
+import tpi.CasosAcad.Entidades.PasoRequisito;
 import tpi.CasosAcad.Sessions.PasoFacadeLocal;
+import tpi.CasosAcad.Sessions.PasoRequisitoFacadeLocal;
 import tpi.CasosAcad.Sessions.TipoPasoFacadeLocal;
 
 /**
@@ -39,8 +38,12 @@ import tpi.CasosAcad.Sessions.TipoPasoFacadeLocal;
 public class FrmPaso implements Serializable{
 
     private LazyDataModel<Paso> modeloPaso;
+    
+    private List<PasoRequisito> Requisitos;
      
     private Paso registroP;// =new Paso();
+    private PasoRequisito Reg;// =new Paso();
+    
     private List<TipoPaso> tipos;
     private boolean editar= false;
     
@@ -48,11 +51,15 @@ public class FrmPaso implements Serializable{
     private PasoFacadeLocal pfl;
     @EJB
     private TipoPasoFacadeLocal tpfl;
+    @EJB
+    private PasoRequisitoFacadeLocal prfl;
+
     
     @PostConstruct
     public void init(){
         
     this.tipos= tpfl.findAll();
+    this.setRequisitos(getPrfl().findAll());
     
     setModeloPaso(new LazyDataModel<Paso>(){
 
@@ -88,12 +95,13 @@ public class FrmPaso implements Serializable{
                 }
                 return null;
             }       
-        });            
+        });     
+    
     }
     
     public Integer getTipoSeleccionado(){
      if(registroP!= null){
-            if(registroP.getIdTipoPaso()!= null){
+            if(registroP.getIdPaso()!= null){
                 return this.registroP.getIdTipoPaso().getIdTipoPaso();
             } else {
                 return null;
@@ -117,6 +125,62 @@ public class FrmPaso implements Serializable{
         }
     
     }
+    
+    //////////////////////////////////////////////////////
+     public Integer getPasoSeleccionado(){
+     if(getReg()!= null){
+            if(getReg().getIdPaso()!= null){
+                return this.getReg().getIdPaso().getIdPaso();
+            } else {
+                return null;
+            }         
+        } else {
+            return null;
+        }
+    }
+    
+    public void setPasoSeleccionado(Integer idPaso){
+        if(idPaso >= 0 && !this.Requisitos.isEmpty()){
+            for(PasoRequisito pre : this.getRequisitos()) {
+                if(Objects.equals(pre.getIdPasoRequisito(), idPaso)) {
+                    if(this.Reg.getIdPaso() != null) {
+                        this.Reg.getIdPaso();
+                    } else {
+                        
+                        this.Reg.setIdPaso(pre.getIdPaso());
+                    }
+                }
+            }
+        }
+    
+    }
+    
+   
+    
+    
+    
+    
+    
+    
+    
+    ////////////////////////////////////////////////
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
      public void cambioTabla(){
         this.editar = true;
     }
@@ -224,5 +288,46 @@ public class FrmPaso implements Serializable{
     public void setEditar(boolean editar) {
         this.editar = editar;
     }
+
+    
+    public List<PasoRequisito> getRequisitos() {
+        return Requisitos;
+    }
+
+    
+    public void setRequisitos(List<PasoRequisito> Requisitos) {
+        this.Requisitos = Requisitos;
+    }
+
+    /**
+     * @return the Reg
+     */
+    public PasoRequisito getReg() {
+        return Reg;
+    }
+
+    /**
+     * @param Reg the Reg to set
+     */
+    public void setReg(PasoRequisito Reg) {
+        this.Reg = Reg;
+    }
+
+    /**
+     * @return the prfl
+     */
+    public PasoRequisitoFacadeLocal getPrfl() {
+        return prfl;
+    }
+
+    /**
+     * @param prfl the prfl to set
+     */
+    public void setPrfl(PasoRequisitoFacadeLocal prfl) {
+        this.prfl = prfl;
+    }
+
+    
+   
     
 }

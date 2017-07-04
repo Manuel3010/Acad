@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Interfaz mantenimiento Tipo-Paso</title>
     </h:head>
     <h:body>
          <p:panel header="Tipo de Pasos para Casos Academicos" closable="false" toggleable="false" >
@@ -38,11 +38,11 @@
             </h:panelGrid>
         </p:panel>
         
-        <div align="center">
+        <div align="left">
             <p:panel id="panelMenu">
                 
                     <h:form id="vistaPaso">
-                <p:panelGrid columns="2" style="text-align:  center" >
+                <p:panelGrid columns="2" style="text-align: left" >
                 
                 <p:outputLabel value="ID" for="txtIdTipoPaso" id="lblIdTipo"/>
                 <p:inputText id="txtIdTipoPaso"  value="#{frmTipoPaso.registro.idTipoPaso}" readonly="true"></p:inputText>

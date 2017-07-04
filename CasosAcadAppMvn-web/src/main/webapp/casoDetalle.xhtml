@@ -1,26 +1,114 @@
-<?xml version='1.0' encoding='UTF-8' ?> 
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <h:outputStylesheet name="./css/default.css"/>
-        <h:outputStylesheet name="./css/cssLayout.css"/>
-        <title>Facelets Template</title>
+        <title>Interfaz mantenimiento Caso-Detalle</title>
     </h:head>
-
     <h:body>
+        
+        
+        <p:panel header="Caso-Detalle Academicos" closable="false" toggleable="false" >
+            <h:panelGrid>
+                <h:form id="tablaCasoDetalle">
+                    <p:dataTable value="#{frmCasoDetalle.modeloCasoDetalle}"
+                                 var="r"
+                                 rows="10"
+                                 paginator="true"
+                                 lazy="true"
+                                 selectionMode="single"
+                                 selection="#{frmCasoDetalle.casoDetalle}"
+                                 style="color: #ff5252"
+                                 >
+                        <p:column headerText="ID Caso-Detalle">
+                            <p:outputLabel value="#{r.idCasoDetalle}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Id caso">
+                            <p:outputLabel value="#{r.idCaso.idCaso}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Id proceso detalle">
+                            <p:outputLabel value="#{r.idProcesoDetalle}"></p:outputLabel>
+                        </p:column> 
+                        
+                           
+                        <p:ajax update=":tabViewCasoDetalle" event="rowSelect" listener="${frmCasoDetalle.cambioTabla}"></p:ajax> 
+                    </p:dataTable>    
+                    <p:growl id="growl" life="2000" />
+                </h:form>
+            </h:panelGrid>
+        </p:panel>
+        
+        <div>
+            <p:tabView id="tabViewCasoDetalle">
+                
+                
+                <p:tab title="Formulario Caso" id="tabCasoDetalle">
+                    <h:form id="edAddCasoDetalle">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="ID Caso detalle" for="txtIdCasoDetalle" id="lblIdCasoDetalle"></p:outputLabel>
+                            <p:inputText id="txtIdCasoDetalle" value="#{frmCasoDetalle.casoDetalle.idCasoDetalle}" readonly="true"></p:inputText>
+                           <p:outputLabel value="Id caso" for="txtIdCaso" id="lblIdCaso"></p:outputLabel>
+                           <p:inputText id="txtIdCaso" value="#{frmCasoDetalle.casoDetalle.idCaso.idCaso} " required="true"></p:inputText>
+                            <p:outputLabel value="Id proceso detalle" for="txtIdProcesoDetalle" id="lblIdProcesoDetalle"></p:outputLabel>
+                            <p:inputText id="txtIdProcesoDetalle" value="#{frmCasoDetalle.casoDetalle.idProcesoDetalle}" required="true"></p:inputText>
+                            
+                           
 
-        <div id="top" class="top">
-            <ui:insert name="top">Top</ui:insert>
+                            <p:commandButton value="Nuevo" actionListener="#{frmCasoDetalle.btnNuevoAction}" update=":tabViewCasoDetalle:edAddCasoDetalle">    
+                            </p:commandButton>
+                            <p:commandButton value="Modificar" actionListener="#{frmCasoDetalle.btnModificarAction}" update="tablaCasoDetalle :tabViewCasoDetalle:edAddCasoDetalle" rendered="${frmCasoDetalle.editar}"></p:commandButton>                
+                            <p:commandButton value="Guardar" actionListener="#{frmCasoDetalle.btnGuardarAction}" update="tablaCasoDetalle :tabViewCasoDetalle:edAddCasoDetalle" rendered="${!frmCasoDetalle.editar}"></p:commandButton> 
+                            <p:commandButton value="Eliminar" actionListener="#{frmCasoDetalle.btnEliminarAction}" update="tablaCasoDetalle :tabViewCasoDetalle:edAddCasoDetalle">
+                                <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar este elemento?" icon="ui-icon-alert" />
+                            </p:commandButton>          
+                        </p:panelGrid> 
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+          </p:confirmDialog>
+
+                    </h:form>
+                </p:tab>
+                
+                <p:tab title="Tabla caso" id="tabCaso">
+                      <h:panelGrid>
+                <h:form id="tablaCaso">
+                    <p:dataTable value="#{frmCasoDetalle.modeloCaso}"
+                                 var="r"
+                                 rows="10"
+                                 paginator="true"
+                                 lazy="true"
+                                 selectionMode="single"
+                                 selection="#{frmCasoDetalle.caso}"
+                                 style="color: #ff5252"
+                                 >
+                        <p:column headerText="ID">
+                            <p:outputLabel value="#{r.idCaso}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Proceso">
+                            <p:outputLabel value="#{r.idProceso.nombre}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Solicitante">
+                            <p:outputLabel value="#{r.idSolicitud.solicitante}"></p:outputLabel>
+                        </p:column> 
+                        <p:column headerText="Nombre">
+                            <p:outputLabel value="#{r.nombre}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Encargado">
+                            <p:outputLabel value="#{r.encargado}"></p:outputLabel>
+                        </p:column>
+                           
+                        <p:ajax update=":tabViewCasoDetalle" event="rowSelect" listener="${frmCasoDetalle.cambioTabla}"></p:ajax> 
+                    </p:dataTable>                          
+                </h:form>
+            </h:panelGrid>
+                </p:tab>
+            </p:tabView>    
         </div>
-
-        <div id="content" class="center_content">
-            <ui:insert name="content">Content</ui:insert>
-        </div>
-
+        
     </h:body>
-
 </html>
+
+
