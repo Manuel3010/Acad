@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -48,7 +49,7 @@ public class tipoRequisitoRecurso {
     @GET
     @Path("estado/{estado}")
     @Produces({MediaType.APPLICATION_JSON})
-    public List<TipoRequisito> findByEstado(@PathParam("estado/{estado}") boolean estado ) {
+    public List<TipoRequisito> findByEstado(@PathParam("estado/{estado}") /*boolean estado */int  estado) {
 
         List salida = new ArrayList();
         try {
@@ -61,7 +62,6 @@ public class tipoRequisitoRecurso {
         }
         return salida;
     }
-    
     
 
      @GET
@@ -80,8 +80,26 @@ public class tipoRequisitoRecurso {
        }
        return salida;
     }
+     
     
-    
+    @DELETE
+    @Path("{id}")
+    public TipoRequisito deleteById(@PathParam("id")int id){
+        TipoRequisito salida = new TipoRequisito();
+        try {
+            if(tipoRequisitoFacade != null) {
+                salida = tipoRequisitoFacade.find(id);
+                if(salida!=null) {
+                    
+                        tipoRequisitoFacade.remove(salida);
+                    
+                }
+               
+            }
+        } catch (Exception e) {
+        }
+        return salida;
+    } 
    
     
     

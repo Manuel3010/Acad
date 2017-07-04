@@ -35,7 +35,7 @@ public class TipoRequisitoFacade extends AbstractFacade<TipoRequisito> implement
     }
     
     @Override
-    public List<TipoRequisito> findByEstado(boolean estado){
+    public List<TipoRequisito> findByEstado(int estado /*boolean estado*/){
     
         try{
         if(em!=null){
